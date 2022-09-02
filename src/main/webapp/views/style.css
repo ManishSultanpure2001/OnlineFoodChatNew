@@ -1,0 +1,6 @@
+@charset "ISO-8859-1";
+
+.loginBody{
+	background-color:red;
+	background-image: url(image/homeImage.jpg);
+}
