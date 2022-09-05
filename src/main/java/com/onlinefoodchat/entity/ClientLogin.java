@@ -12,22 +12,26 @@ public class ClientLogin {
 		public String clientPhone;
 		public String clientPassword;
 		public String clientPlan;
+		public int otp;
 		public Date startDate;
 		public Date endDate;
 		public ClientLogin() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		public ClientLogin(String clientEmail, String clientPhone, String clientPassword, String clientPlan,
+	
+		public ClientLogin(String clientEmail, String clientPhone, String clientPassword, String clientPlan, int otp,
 				Date startDate, Date endDate) {
 			super();
 			this.clientEmail = clientEmail;
 			this.clientPhone = clientPhone;
 			this.clientPassword = clientPassword;
 			this.clientPlan = clientPlan;
+			this.otp = otp;
 			this.startDate = startDate;
 			this.endDate = endDate;
 		}
+
 		public String getClientEmail() {
 			return clientEmail;
 		}
@@ -64,12 +68,22 @@ public class ClientLogin {
 		public void setEndDate(Date endDate) {
 			this.endDate = endDate;
 		}
+
+		public int getOtp() {
+			return otp;
+		}
+
+		public void setOtp(int otp) {
+			this.otp = otp;
+		}
+
 		@Override
 		public String toString() {
-			return "LoginEntity [clientEmail=" + clientEmail + ", clientPhone=" + clientPhone + ", clientPassword="
-					+ clientPassword + ", clientPlan=" + clientPlan + ", startDate=" + startDate + ", endDate="
-					+ endDate + "]";
+			return "ClientLogin [clientEmail=" + clientEmail + ", clientPhone=" + clientPhone + ", clientPassword="
+					+ clientPassword + ", clientPlan=" + clientPlan + ", otp=" + otp + ", startDate=" + startDate
+					+ ", endDate=" + endDate + "]";
 		}
+		
 		
 		
 }

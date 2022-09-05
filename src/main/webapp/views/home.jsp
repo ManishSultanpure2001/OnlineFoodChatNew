@@ -27,15 +27,15 @@
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> User </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="signup">Login</a> <a
-								class="dropdown-item" href="login">SignUp</a>
+							<a class="dropdown-item" href="#">Login</a> <a
+								class="dropdown-item" href="#">SignUp</a>
 						</div></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> Client </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#section41">Login</a> <a
-								class="dropdown-item" href="#section42">SignUp</a>
+							<a class="dropdown-item" href="login">Login</a> <a
+								class="dropdown-item" href="signup">SignUp</a>
 						</div></li>
 
 				</ul>
