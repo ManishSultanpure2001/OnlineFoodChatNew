@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<%@include file="all_js_css.jsp"%>
-<link rel="stylesheet" href="style.css">
 <title>Login</title>
+<link rel="stylesheet" href="style.css">
+<%@include file="all_js_css.jsp"%>
 </head>
 
 
@@ -84,11 +84,12 @@ window.onload = function() {
 					url : "/email1?email="+mail,
 					success : function(data) {
 						console.log("done");
+						 swal("Good Job", "OTP Sent Successfull", "success"); 
 						$("#hiddenDiv").show();
-					 /*  $("#emailId").hide();	 */
 						},
 					error : function(data) {
-						$("#emailId").val("not ok");
+						 swal("Opps", "OTP Not Sent Successfull", "error"); 
+				
 					}
 				});
 	}
@@ -111,12 +112,12 @@ window.onload = function() {
                            var data = '';
                            swal("Good Job", "Register Successfully", "success"); 
                           	 setInterval(5000);
-                          	window.location.href = "/views/clientSignUp.jsp";
+                          	window.location.href = "/views/clientDeshboard.jsp";
                                
                        },
                        error: function (error) {
                        	//window.location.href = "/views/clintSignUp.jsp";
-                       	swal("Somthing Went Wrong!", "Please Try Again", "error");
+                       	swal("Opps Somthing Went Wrong!", "Please Try Again", "error");
                            console.log(error);
                        },
                    });
