@@ -1,8 +1,8 @@
 package com.onlinefoodchat.controller;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.mail.Multipart;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +36,17 @@ public class RestoController {
 				return 	modelAndView;	
 	}
 	
+	/* View All Menu */
+	@GetMapping("/allMenu")
+	public ModelAndView allMenu(HttpSession session) {
+		List<MenuEntity> allMenu = restoService.getAllMenu(session);
+		System.out.println("asds"+allMenu);
+		modelAndView.addObject("allDish",allMenu);
+		modelAndView.setViewName("ShowAllMenu");
+		return modelAndView;
+	}
+	
+	/* Add Resto */
 	@PostMapping("/addResto")
 	public ModelAndView addResto(@RequestParam("restoName")String restoName) {
 		System.out.println("add="+restoName);
@@ -50,12 +59,25 @@ public class RestoController {
 		return modelAndView;
 	}
 	
-	@SuppressWarnings(value = { "unchecked", "deprecated" })
-	@RequestMapping(value = { "/addMenu" }, consumes = {"multipart/form-data"}) 
-	public ModelAndView addMenu(@ModelAttribute MenuEntity menuEntity,@RequestParam("menuImage") MultipartFile multipart) throws IOException {
-		System.out.println(multipart);
+	/* Add Dish */
+	@PostMapping("/addMenu") 
+	public ModelAndView addMenu(@ModelAttribute MenuEntity menuEntity,@RequestParam("multipart") MultipartFile multipart,HttpSession session) throws IOException {
+		
 		boolean addMenuData = restoService.addMenuData(menuEntity,multipart);
 		System.out.println(addMenuData);
+		modelAndView.setViewName("allMenu");
+		this.allMenu(session);
+		modelAndView.setViewName("ShowAllMenu");
+		return modelAndView;
+	}
+	
+	/* Delete Dish */
+	@RequestMapping("/deleteDish")
+	public ModelAndView deleteDish(@RequestParam("menuId") int id,HttpSession session) {
+		System.out.println("id="+id);
+		 restoService.dishDelete(id);
+		 this.allMenu(session);
+		modelAndView.setViewName("ShowAllMenu");
 		return modelAndView;
 	}
 

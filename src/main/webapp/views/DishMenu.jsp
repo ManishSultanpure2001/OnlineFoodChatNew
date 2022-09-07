@@ -24,15 +24,15 @@
 					<div class="card-body">
 						<h4 class="text-center text-primary">Add Dish</h4>
 
-						<form action="../addMenu" method="POST"  enctype="multipart/form-data">
+						<form action="/addMenu" method="POST"  enctype="multipart/form-data">
 
 							<div class="form-group">
-								<label>Enter Menu Name</label> <input type="text"
+								<label>Enter Menu Name *</label> <input type="text"
 									class="form-control" name="menuName" id="menuName"
 									required="required">
 							</div>
 							<div class="form-group">
-								<label>Enter Price</label> 
+								<label>Enter Price *</label> 
 								<input type="number"
 									class="form-control" name="menuPrice" id="menuPrice"
 									required="required">
@@ -41,7 +41,7 @@
 								<label>Upload Menu Image</label> 
 								<br>
 								<input type="file" id="menuImageId"
-									name="menuImage">
+									name="multipart">
 							</div>
 
 							<div class="form-floating">

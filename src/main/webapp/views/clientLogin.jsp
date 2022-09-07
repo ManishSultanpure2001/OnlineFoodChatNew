@@ -58,7 +58,7 @@
 									class="form-control" name="otp" id="hiddenText" >
 							</div>
 							<br>
-							<button class="btn btn-primary btn-block" id="form1" onclick="submitForm()">Signup</button>
+							<button class="btn btn-primary btn-block" id="form1" onclick="submitForm()">Signin</button>
 						<!-- </form> -->
 					</div>
 				</div>

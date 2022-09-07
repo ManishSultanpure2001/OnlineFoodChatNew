@@ -1,5 +1,6 @@
 package com.onlinefoodchat.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,20 +13,16 @@ public class MenuEntity {
 	private int menuId;
 	private String menuName;
 	private String menuPrice;
-	private String menuImage;
+	private String clientemail;
+	@Column(nullable = true)
+	private String menuImage="";
 	
 	public MenuEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public MenuEntity(int menuId, String menuName, String menuPrice, String menuImage) {
-		super();
-		this.menuId = menuId;
-		this.menuName = menuName;
-		this.menuPrice = menuPrice;
-		this.menuImage = menuImage;
-	}
+	
 
 	public int getMenuId() {
 		return menuId;
@@ -59,11 +56,27 @@ public class MenuEntity {
 		this.menuImage = menuImage;
 	}
 
+
+
+	public String getClientemail() {
+		return clientemail;
+	}
+
+
+
+	public void setClientemail(String clientemail) {
+		this.clientemail = clientemail;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "MenuEntity [menuId=" + menuId + ", menuName=" + menuName + ", menuPrice=" + menuPrice + ", menuImage="
-				+ menuImage + "]";
+		return "MenuEntity [menuId=" + menuId + ", menuName=" + menuName + ", menuPrice=" + menuPrice + ", clientemail="
+				+ clientemail + ", menuImage=" + menuImage + "]";
 	}
+
+	
 	
 	
 		

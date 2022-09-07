@@ -29,6 +29,9 @@
 							<li><a href="#"> <i class="fas fa-comment"></i> <span
 									class="nav-item">View Order </span>
 							</a></li>
+							<li><a href="../allMenu"> <i class="fas fa-comment"></i> <span
+									class="nav-item">All Menu </span>
+							</a></li>
 							<li><a href="#"> <i class="fas fa-database"></i> <span
 									class="nav-item">Notification </span>
 							</a></li>

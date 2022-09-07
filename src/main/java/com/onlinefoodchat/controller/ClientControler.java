@@ -23,7 +23,7 @@ import com.onlinefoodchat.service.ClientServices;
 import com.onlinefoodchat.service.EmailSenderService;
 
 @Controller
-public class ClientControler extends HttpServlet{
+public class ClientControler extends HttpServlet {
 
 	private int randomWithNextInt;
 	@Autowired
@@ -76,18 +76,19 @@ public class ClientControler extends HttpServlet{
 	}
 
 	@PostMapping("/clientLogin")
-	public ResponseEntity<Object> clintLogin2(@RequestBody ClientLogin clientLogin,	HttpSession session) {
+	public ResponseEntity<Object> clintLogin2(@RequestBody ClientLogin clientLogin, HttpSession session) {
 		ClientLogin obj = clientService.cilentLogin(clientLogin);
 		System.out.println(clientLogin.getOtp());
 		System.out.println(randomWithNextInt);
 		System.out.println("come");
-		if (obj != null && randomWithNextInt == clientLogin.getOtp()) {
+//		if (obj != null && randomWithNextInt == clientLogin.getOtp()) {
+		if (obj != null) {
 			System.out.println("in login");
 			System.out.println(clientLogin.getId());
 			System.out.println(clientLogin.getClientEmail());
 //			HttpSession s=request.getSession(false);
 			System.out.println(session);
-			session.setAttribute("email",clientLogin.getClientEmail());
+			session.setAttribute("email", clientLogin.getClientEmail());
 			System.out.println("ok");
 			return ResponseEntity.ok(clientLogin);
 		} else {
@@ -99,7 +100,7 @@ public class ClientControler extends HttpServlet{
 	@ResponseBody
 	@GetMapping("/email")
 	public String emailSendWithPlan(@RequestParam String email, @RequestParam String plan) {
-	
+
 		Random random = new Random();
 
 		randomWithNextInt = random.nextInt(799999) + 100000;
@@ -118,7 +119,7 @@ public class ClientControler extends HttpServlet{
 		randomWithNextInt = random.nextInt(799999) + 100000;
 		String subject = "OTP verification ";
 		String mailMessage = "  Enter OTP for Conformation  " + randomWithNextInt;
-		emailSenderService.mailSender(email, subject, mailMessage);
+		// emailSenderService.mailSender(email, subject, mailMessage);
 
 		return "ok";
 	}
