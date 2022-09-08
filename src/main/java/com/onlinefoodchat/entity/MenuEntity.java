@@ -15,14 +15,11 @@ public class MenuEntity {
 	private String menuPrice;
 	private String clientemail;
 	@Column(nullable = true)
-	private String menuImage="";
-	
+	private String menuImage = "";
+
 	public MenuEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	
 
 	public int getMenuId() {
 		return menuId;
@@ -56,19 +53,13 @@ public class MenuEntity {
 		this.menuImage = menuImage;
 	}
 
-
-
 	public String getClientemail() {
 		return clientemail;
 	}
 
-
-
 	public void setClientemail(String clientemail) {
 		this.clientemail = clientemail;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -76,8 +67,4 @@ public class MenuEntity {
 				+ clientemail + ", menuImage=" + menuImage + "]";
 	}
 
-	
-	
-	
-		
 }

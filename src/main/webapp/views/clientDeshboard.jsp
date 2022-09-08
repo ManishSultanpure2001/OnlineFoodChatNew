@@ -11,39 +11,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <body class="loginBody">
-<center>
+	<center>
 		<h1 id="deshboardHading">Welcome In Deshboard</h1>
-</center>
+	</center>
 	<div class="container">
 
 		<section class="attendance">
 			<div class="attendance-list">
-					<nav>
-						<ul>
-							<li><a href="#" class="logo"> <img src="./pic/logo.jpg">
-									<span class="nav-item">Your Profile</span>
-							</a></li>
-							<li><a href="../checkResto"> <i class="fas fa-menorah"></i> <span
-									class="nav-item">Add resto </span>
-							</a></li>
-							<li><a href="#"> <i class="fas fa-comment"></i> <span
-									class="nav-item">View Order </span>
-							</a></li>
-							<li><a href="../allMenu"> <i class="fas fa-comment"></i> <span
-									class="nav-item">All Menu </span>
-							</a></li>
-							<li><a href="#"> <i class="fas fa-database"></i> <span
-									class="nav-item">Notification </span>
-							</a></li>
-							<li><a href="#"> <i class="fas fa-chart-bar"></i> <span
-									class="nav-item">My Account </span>
-							</a></li>
-							<li><a href="../login"> <i class="fas fa-cog"></i> <span
-									class="nav-item">Logout </span>
-							</a></li>
+				<nav>
+					<ul>
+						<li><a href="#" class="logo"> <img src="profile.png">
+								<span class="nav-item">Your Profile</span>
+						</a></li>
+						<li><a href="../checkResto"> <i class="fas fa-menorah"></i>
+								<span class="nav-item">Add resto </span>
+						</a></li>
+						<li><a href="../allMenu"> <i class="fas fa-comment"></i>
+								<span class="nav-item">All Menu </span>
+						</a></li>
+						<li><a href="#"> <i class="fas fa-comment"></i> <span
+								class="nav-item">View Order </span>
+						</a></li>
+						
+						<li><a href="#"> <i class="fas fa-database"></i> <span
+								class="nav-item">Notification </span>
+						</a></li>
+						<li><a href="ClientMyAccount.jsp"> <i class="fas fa-chart-bar"></i> <span
+								class="nav-item">My Account </span>
+						</a></li>
+						<li><a href="../login"> <i class="fas fa-cog"></i> <span
+								class="nav-item">Logout </span>
+						</a></li>
 
-						</ul>
-					</nav>
+					</ul>
+				</nav>
 
 			</div>
 		</section>

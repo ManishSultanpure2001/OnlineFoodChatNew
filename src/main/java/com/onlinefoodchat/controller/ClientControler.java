@@ -24,7 +24,6 @@ import com.onlinefoodchat.service.EmailSenderService;
 
 @Controller
 public class ClientControler extends HttpServlet {
-
 	private int randomWithNextInt;
 	@Autowired
 	private EmailSenderService emailSenderService;
@@ -64,15 +63,11 @@ public class ClientControler extends HttpServlet {
 		clientLogin.setEndDate(new java.sql.Date(date.getYear(), date.getMonth() + incrimentValue, date.getDate()));
 
 		if (clientService.clintRegister(clientLogin) && randomWithNextInt == clientLogin.getOtp()) {
-			// con1 = hrService.findByEmailAndPassword(email, password);
-
-			System.out.println("ok");
 			return ResponseEntity.ok(clientLogin);
 		} else {
-			System.out.println("Not ok");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
-		// return modelAndView;
+
 	}
 
 	@PostMapping("/clientLogin")
@@ -82,21 +77,18 @@ public class ClientControler extends HttpServlet {
 		System.out.println(randomWithNextInt);
 		System.out.println("come");
 //		if (obj != null && randomWithNextInt == clientLogin.getOtp()) {
-		if (obj != null) {
+			 if (obj != null) {
 			System.out.println("in login");
 			System.out.println(clientLogin.getId());
 			System.out.println(clientLogin.getClientEmail());
-//			HttpSession s=request.getSession(false);
-			System.out.println(session);
 			session.setAttribute("email", clientLogin.getClientEmail());
-			System.out.println("ok");
 			return ResponseEntity.ok(clientLogin);
 		} else {
-			System.out.println("not ok");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
 	}
 
+	/* Email Send With Plan */
 	@ResponseBody
 	@GetMapping("/email")
 	public String emailSendWithPlan(@RequestParam String email, @RequestParam String plan) {
@@ -111,6 +103,7 @@ public class ClientControler extends HttpServlet {
 		return "ok";
 	}
 
+	/* Email Send Without Plan */
 	@ResponseBody
 	@GetMapping("/email1")
 	public String emailSend(@RequestParam String email) {
@@ -119,8 +112,7 @@ public class ClientControler extends HttpServlet {
 		randomWithNextInt = random.nextInt(799999) + 100000;
 		String subject = "OTP verification ";
 		String mailMessage = "  Enter OTP for Conformation  " + randomWithNextInt;
-		// emailSenderService.mailSender(email, subject, mailMessage);
-
+		emailSenderService.mailSender(email, subject, mailMessage);
 		return "ok";
 	}
 }

@@ -1,9 +1,11 @@
 package com.onlinefoodchat.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,12 +31,12 @@ public class RestoService {
 	private MenuRepository menuRepository;
 	ClientLogin findByClientEmail;
 	MenuEntity menuEntity;
+
 	/*
 	 * Check Resto Name
 	 */
 	public boolean check(HttpSession request) {
-		session =request;
-//		System.out.println(request.getSession().getAttribute("clientId"));
+		session = request;
 		System.out.println("Email=" + request.getAttribute("email"));
 		findByClientEmail = this.clientRepository.findByClientEmail((String) request.getAttribute("email"));
 		System.out.println(findByClientEmail.getClientPlan());
@@ -45,15 +47,15 @@ public class RestoService {
 	}
 
 	/* Show All Menu */
-	
+
 	public List<MenuEntity> getAllMenu(HttpSession request) {
-		
+
 		System.out.println((String) request.getAttribute("email"));
-		 List<MenuEntity> findByclientemail2 = this.menuRepo.findByClientemail((String)request.getAttribute("email"));
-	System.out.println(findByclientemail2.toString());
-	return findByclientemail2;
+		List<MenuEntity> findByclientemail2 = this.menuRepo.findByClientemail((String) request.getAttribute("email"));
+		System.out.println(findByclientemail2.toString());
+		return findByclientemail2;
 	}
-	
+
 	/* Add Resto Name */
 	public boolean addRestoName(String rName) {
 		findByClientEmail.setRestoName(rName);
@@ -62,12 +64,11 @@ public class RestoService {
 	}
 
 	/* Add Menu */
-	public boolean addMenuData(MenuEntity data, MultipartFile imageFile) throws IOException {
-
+	public boolean addMenuData(MenuEntity data, MultipartFile imageFile, HttpSession request) throws IOException {
+		data.setClientemail("" + request.getAttribute("email"));
 		String imageName = imageFile.getOriginalFilename().trim();
-		System.out.println(imageName);
 		data.setMenuImage(imageName);
-		data.setClientemail(""+session.getAttribute("email"));
+		if(imageName!=null) {
 		inputStreamImage = imageFile.getInputStream();
 		try {
 			fileOutputStreamImage = new FileOutputStream("D:\\OnlineFoodChat\\src\\main\\webapp\\Image\\" + imageName);
@@ -76,17 +77,39 @@ public class RestoService {
 
 				fileOutputStreamImage.write(bytesImage);
 			}
-		} finally {
-			fileOutputStreamImage.close();
+		} 
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		}
 		menuRepository.save(data);
 		return true;
 	}
-	
-	/* Delete Menu */
-	public void dishDelete(int menuId) {
-		menuRepository.deleteById(menuId);
-		 
+
+	/* Edit Dish */
+	public MenuEntity getEditData(int id) {
+		MenuEntity findById = this.menuRepo.findByMenuId(id);
+		return findById;
 	}
 
+	/* Edit Dish Successfull */
+	public boolean updateData(MenuEntity entity, int id, MultipartFile imageFile, HttpSession session)
+			throws IOException {
+
+		Optional<MenuEntity> findById = this.menuRepo.findById(id);
+		MenuEntity menu = findById.get();
+		menu.setMenuName(entity.getMenuName());
+		menu.setMenuPrice(entity.getMenuPrice());
+		menu.setMenuImage(imageFile.getOriginalFilename().trim());
+		this.addMenuData(menu, imageFile, session);
+		return true;
+	}
+
+	/* Delete Menu */
+	public void dishDelete(int menuId, String imageName) {
+		File image = new File("D:\\OnlineFoodChat\\src\\main\\webapp\\Image\\" + imageName.trim());
+		image.delete();
+		menuRepository.deleteById(menuId);
+
+	}
 }

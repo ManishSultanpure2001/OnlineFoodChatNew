@@ -58,9 +58,9 @@
 									<br> <select class="form-select" id="plan"
 										aria-label="Floating label select example" name="clientPlan">
 										<option selected>select Any Plans</option>
-										<option value="One Month">One Month</option>
-										<option value="Two Month">Two Month</option>
-										<option value="Three Month">Three Month</option>
+										<option value="One Month">One Month buy 150 rs</option>
+										<option value="Two Month">Two Month buy 290 rs</option>
+										<option value="Three Month">Three Month buy 290 rs</option>
 									</select>
 								</div>
 
@@ -132,8 +132,7 @@
 			dataType : "json",
 			success : function(response) {
 				console.log(response);
-				var data = '';
-
+				//var data = '';
 				swal("Good Job", "Register Successfully", "success");
 				setInterval(5000);
 				window.location.href = "/views/clientLogin.jsp";

@@ -1,6 +1,6 @@
 
 
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -26,8 +26,8 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 
-	
-	<!-- Optional Ajax -->
+
+<!-- Optional Ajax -->
 
 <script src="component/jquery/jquery.js" type="text/javascript"></script>
 <script

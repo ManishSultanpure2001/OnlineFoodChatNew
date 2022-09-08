@@ -5,8 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
-<link rel="stylesheet" href="style.css">
 <%@include file="all_js_css.jsp"%>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg " class="navbar navbar-light"
@@ -22,7 +22,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-4 mb-lg-0">
-					
+
 					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
@@ -36,7 +36,7 @@
 						data-toggle="dropdown"> Client </a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="login">Login</a> <a
-								class   ="dropdown-item" href="signup">SignUp</a>
+								class="dropdown-item" href="signup">SignUp</a>
 						</div></li>
 
 				</ul>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add Menu</title>
 <link rel="stylesheet" href="style.css">
 <%@include file="all_js_css.jsp"%>
 </head>
@@ -24,7 +24,8 @@
 					<div class="card-body">
 						<h4 class="text-center text-primary">Add Dish</h4>
 
-						<form action="/addMenu" method="POST"  enctype="multipart/form-data">
+						<form action="/addMenu" method="POST"
+							enctype="multipart/form-data">
 
 							<div class="form-group">
 								<label>Enter Menu Name *</label> <input type="text"
@@ -32,16 +33,13 @@
 									required="required">
 							</div>
 							<div class="form-group">
-								<label>Enter Price *</label> 
-								<input type="number"
+								<label>Enter Price *</label> <input type="number"
 									class="form-control" name="menuPrice" id="menuPrice"
 									required="required">
 							</div>
 							<div class="form-group">
-								<label>Upload Menu Image</label> 
-								<br>
-								<input type="file" id="menuImageId"
-									name="multipart">
+								<label>Upload Menu Image</label> <br> <input type="file"
+									id="menuImageId" name="multipart">
 							</div>
 
 							<div class="form-floating">
