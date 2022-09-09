@@ -13,20 +13,20 @@
 </head>
 <body>
 	<div class="container">
-	<form action="ClientPlan.jsp">
+	<form action="/myPlan">
 	<br>
 	<br>
 	<br>
-	<button type="submit" class="btn btn-primary btn-lg btn-block">Block level button</button>
+	<button type="submit" class="btn btn-primary btn-lg btn-block">My Plan</button>
 	</form>
-	<form action="">
+	<form action="RenewPlan.jsp">
 	<br>
 	<br>
 	<br>
 	<br>
 	<br>
 	<br>
-<button type="submit" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+<button type="submit" class="btn btn-secondary btn-lg btn-block">Renew Plan</button>
 	</form>
 </div>
 </body>

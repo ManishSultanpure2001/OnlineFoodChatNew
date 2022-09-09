@@ -33,10 +33,7 @@
 								class="form-control" name="clientEmail" id="emailId">
 						</div>
 
-						<div class="form-group">
-							<label>Enter Phone</label> <input type="number"
-								class="form-control" name="clientPhone" id="phone">
-						</div>
+		
 
 						<div class="form-group">
 							<label>Enter Password</label> <input type="password"
@@ -47,13 +44,7 @@
 
 							<div class="col-md">
 								<div class="form-floating">
-									<br> <select class="form-select" id="plan"
-										aria-label="Floating label select example" name="clientPlan">
-										<option selected>select Any Plans</option>
-										<option value="One Month">One Month buy 150 rs</option>
-										<option value="Two Month">Two Month buy 290 rs</option>
-										<option value="Three Month">Three Month buy 290 rs</option>
-									</select>
+									<br> 
 								</div>
 
 							</div>
@@ -61,7 +52,7 @@
 								<div class="form-floating">
 									<br>
 									<button type="button"
-										class="btn btn-primary btn-block btn-large" onclick="demo()">pay</button>
+										class="btn btn-primary btn-block btn-large" onclick="demo()">Submit</button>
 								</div>
 							</div>
 						</div>
@@ -88,8 +79,8 @@
 	};
 	function demo() {
 
-		let mail = $("#emailId").val();
-		let plan = $("#plan").val();
+		/* let mail = $("#emailId").val();
+		let plan = $("#plan").val(); */
 
 		$.ajax({
 
@@ -110,9 +101,7 @@
 
 		var fieldValues = {
 			"clientEmail" : $("#emailId").val(),
-			"clientPhone" : $("#phone").val(),
 			"clientPassword" : $("#password").val(),
-			"clientPlan" : $("#plan").val(),
 			"otp" : $("#hiddenText").val(),
 		};
 

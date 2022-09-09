@@ -22,9 +22,10 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 
+				 
 				<div class="card">
 					<div class="card-body">
-						<h4 class="text-center text-primary">Sign-Up</h4>
+						<h4 class="text-center text-primary">Renew Plan</h4>
 
 						<!-- 	<form method="POST"> -->
 
@@ -32,17 +33,7 @@
 							<label>Enter Email</label> <input type="email"
 								class="form-control" name="clientEmail" id="emailId">
 						</div>
-
-						<div class="form-group">
-							<label>Enter Phone</label> <input type="number"
-								class="form-control" name="clientPhone" id="phone">
-						</div>
-
-						<div class="form-group">
-							<label>Enter Password</label> <input type="password"
-								class="form-control" name="clientPassword" id="password">
-						</div>
-
+ 
 						<div class="row g-2">
 
 							<div class="col-md">
@@ -71,7 +62,7 @@
 						</div>
 						<br>
 						<button class="btn btn-primary btn-block" id="form1"
-							onclick="submitForm()">Signup</button>
+							onclick="submitForm()">Renew Plan</button>
 						<!-- </form> -->
 					</div>
 				</div>
@@ -110,14 +101,12 @@
 
 		var fieldValues = {
 			"clientEmail" : $("#emailId").val(),
-			"clientPhone" : $("#phone").val(),
-			"clientPassword" : $("#password").val(),
 			"clientPlan" : $("#plan").val(),
 			"otp" : $("#hiddenText").val(),
 		};
 
 		$.ajax({
-			url : "/clientSignup",
+			url : "/clientPlan",
 			data : JSON.stringify(fieldValues),
 			contentType : "application/json",
 			type : "POST",
@@ -125,14 +114,14 @@
 			success : function(response) {
 				console.log(response);
 				//var data = '';
-				swal("Good Job", "Register Successfully", "success");
+				swal("Good Job", "Plan Added Successfully", "success");
 				setInterval(5000);
-				window.location.href = "/views/clientLogin.jsp";
+				window.location.href = "/views/clientDeshboard.jsp";
 
 			},
 			error : function(error) {
 				//window.location.href = "/views/clintSignUp.jsp";
-				swal("Somthing Went Wrong!", "Please Try Again", "error");
+				swal("Plan Did Not Renew Successfully", "It Is Not Exprire Yet ", "error");
 				console.log(error);
 			},
 		});
