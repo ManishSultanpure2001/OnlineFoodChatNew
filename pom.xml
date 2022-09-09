@@ -48,6 +48,7 @@
 			<scope>test</scope>
 		</dependency>
 		
+	
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -57,6 +58,20 @@
 		<dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+
+<!-- 	Capcha Depandancy -->
+<dependency>
+<groupId>cn.apiclub.tool</groupId>
+<artifactId>simplecaptcha</artifactId>
+<version>1.2.2</version> <!-- we have to manage version here -->
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+
+<dependency>
+<groupId>javax.xml.bind</groupId>
+<artifactId>jaxb-api</artifactId>
 </dependency>
 	</dependencies>
 

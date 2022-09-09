@@ -1,5 +1,6 @@
 package com.onlinefoodchat.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.service.ClientServices;
@@ -29,7 +31,8 @@ public class ClientControler extends HttpServlet {
 	private EmailSenderService emailSenderService;
 	@Autowired
 	private ClientServices clientService;
-
+	ModelAndView modelAndView=new ModelAndView();
+	Date date;
 	@RequestMapping("/")
 	public String showHome() {
 		return "home";
@@ -52,7 +55,7 @@ public class ClientControler extends HttpServlet {
 	public ResponseEntity<Object> clientSignUp2(@RequestBody ClientLogin clientLogin) {
 		System.out.println(clientLogin.getClientEmail());
 		int incrimentValue = 0;
-		Date date = new Date();
+		date = new Date();
 		if (clientLogin.getClientPlan().equals("One Month"))
 			incrimentValue++;
 		else if (clientLogin.getClientPlan().equals("Two Month"))
@@ -87,7 +90,45 @@ public class ClientControler extends HttpServlet {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
 	}
+	/* Client Plan*/
+	 
+	@RequestMapping("/myPlan")
+	public ModelAndView myPlan1(HttpSession session) {
+		ClientLogin planEntity = clientService.myPlan(session);
+		modelAndView.setViewName("ClientPlan");
+		modelAndView.addObject("data",planEntity);
+		return modelAndView;
+	}
+	
+	/* Plan Checker */
+	@ResponseBody
+	@GetMapping("/plan")
+	public String checkPlan(@RequestParam String lastDate) throws ParseException {
+		System.out.println(lastDate);
+		boolean dateChack = clientService.dateChack(lastDate);
+		if(dateChack)
+			return "ok";
+	 return "not ok";
+	}
+	
+	/* Renew Plan */
 
+ 
+		@SuppressWarnings("deprecation")
+		@PostMapping("/clientPlan")
+		public ResponseEntity<Object> renewPlan(@RequestBody ClientLogin clientLogin) throws ParseException {
+			//if (clientService.renewPlan(clientLogin) && randomWithNextInt == clientLogin.getOtp()) {
+			if (clientService.renewPlan(clientLogin)) {
+				System.out.println("pass");
+				return ResponseEntity.ok(clientLogin);
+			} else {
+				System.out.println("fail");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
+			}
+
+		}
+	 
+	
 	/* Email Send With Plan */
 	@ResponseBody
 	@GetMapping("/email")
@@ -98,8 +139,7 @@ public class ClientControler extends HttpServlet {
 		randomWithNextInt = random.nextInt(799999) + 100000;
 		String subject = "OTP verification ";
 		String mailMessage = "Your plan is  " + plan + "  Enter OTP for Conformation  " + randomWithNextInt;
-		emailSenderService.mailSender(email, subject, mailMessage);
-
+		//emailSenderService.mailSender(email, subject, mailMessage);
 		return "ok";
 	}
 
@@ -112,7 +152,8 @@ public class ClientControler extends HttpServlet {
 		randomWithNextInt = random.nextInt(799999) + 100000;
 		String subject = "OTP verification ";
 		String mailMessage = "  Enter OTP for Conformation  " + randomWithNextInt;
-		emailSenderService.mailSender(email, subject, mailMessage);
+		//emailSenderService.mailSender(email, subject, mailMessage);
 		return "ok";
 	}
+	
 }
