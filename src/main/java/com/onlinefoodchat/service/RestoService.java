@@ -66,6 +66,7 @@ public class RestoService {
 	/* Add Menu */
 	public boolean addMenuData(MenuEntity data, MultipartFile imageFile, HttpSession request) throws IOException {
 		data.setClientemail("" + request.getAttribute("email"));
+		
 		String imageName = imageFile.getOriginalFilename().trim();
 		data.setMenuImage(imageName);
 		if(imageName!=null) {
@@ -82,7 +83,9 @@ public class RestoService {
 			System.out.println(e);
 		}
 		}
-		menuRepository.save(data);
+		 ClientLogin findByClientEmail2 = clientRepository.findByClientEmail(""+request.getAttribute("email"));
+		 data.setClientLogin(findByClientEmail2);
+		 menuRepository.save(data);
 		return true;
 	}
 

@@ -28,9 +28,7 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h4 class="text-center text-primary">Login</h4>
-
-						<!-- 	<form method="POST"> -->
+						<h4 class="text-center text-primary">Client Login</h4>
 
 						<div class="form-group">
 							<label>Enter Email</label> <input type="email"
@@ -111,8 +109,8 @@
 			success : function(response) {
 				console.log(response);
 				var data = '';
-				swal("Good Job", "Register Successfully", "success");
-				setInterval(5000);
+				swal("Good Job", "Login Successfully", "success");
+				 
 				window.location.href = "/views/clientDeshboard.jsp";
 
 			},

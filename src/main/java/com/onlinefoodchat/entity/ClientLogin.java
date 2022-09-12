@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ClientLogin {
@@ -19,10 +20,13 @@ public class ClientLogin {
 	private String clientPassword;
 	private String clientPlan;
 	private int otp;
-	private String RestoName;
+	
+	private String restoName;
 	private Date startDate;
 	private Date endDate;
 
+	
+	
 	public ClientLogin() {
 		super();
 	}
@@ -36,7 +40,7 @@ public class ClientLogin {
 		this.clientPassword = clientPassword;
 		this.clientPlan = clientPlan;
 		this.otp = otp;
-		RestoName = restoName;
+		restoName = restoName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
@@ -106,18 +110,18 @@ public class ClientLogin {
 	}
 
 	public String getRestoName() {
-		return RestoName;
+		return restoName;
 	}
 
 	public void setRestoName(String restoName) {
-		RestoName = restoName;
+		restoName = restoName;
 	}
 
 	@Override
 	public String toString() {
 		return "ClientLogin [id=" + id + ", clientEmail=" + clientEmail + ", clientPhone=" + clientPhone
-				+ ", clientPassword=" + clientPassword + ", clientPlan=" + clientPlan + ", otp=" + otp + ", RestoName="
-				+ RestoName + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ ", clientPassword=" + clientPassword + ", clientPlan=" + clientPlan + ", otp=" + otp + ", restoName="
+				+ restoName + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
 
 }

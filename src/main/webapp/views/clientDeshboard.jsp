@@ -18,7 +18,7 @@
 
 		<section class="attendance">
 			<div class="attendance-list">
-				<nav>
+				<nav class="deshboradNav">
 					<ul>
 						<li><a href="#" class="logo"> <img src="profile.png">
 								<span class="nav-item">Your Profile</span>

@@ -1,5 +1,8 @@
 package com.onlinefoodchat.repository;
 
+import java.sql.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -13,4 +16,5 @@ public interface ClientRepository extends JpaRepository<ClientLogin, Integer> {
 
 	public ClientLogin findByClientEmail(@Param("email") String clientEmail);
 	
+	public List<ClientLogin> findByRestoNameContainsAndEndDateGreaterThanEqual(@Param("name") String restoName,@Param("date") Date endDate);
 }

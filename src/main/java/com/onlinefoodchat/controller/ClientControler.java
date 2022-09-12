@@ -31,6 +31,7 @@ public class ClientControler extends HttpServlet {
 	private EmailSenderService emailSenderService;
 	@Autowired
 	private ClientServices clientService;
+	
 	ModelAndView modelAndView=new ModelAndView();
 	Date date;
 	@RequestMapping("/")
@@ -70,7 +71,6 @@ public class ClientControler extends HttpServlet {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
-
 	}
 
 	@PostMapping("/clientLogin")
