@@ -24,7 +24,7 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h4 class="text-center text-primary">Sign-Up</h4>
+						<h4 class="text-center text-primary">Client Sign-Up</h4>
 
 						<!-- 	<form method="POST"> -->
 

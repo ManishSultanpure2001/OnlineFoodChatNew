@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class MenuEntity {
@@ -16,6 +18,20 @@ public class MenuEntity {
 	private String clientemail;
 	@Column(nullable = true)
 	private String menuImage = "";
+
+
+	@ManyToOne
+	@JoinColumn(name="restoName")
+	private ClientLogin clientLogin;
+	
+	
+	public ClientLogin getClientLogin() {
+		return clientLogin;
+	}
+
+	public void setClientLogin(ClientLogin clientLogin) {
+		this.clientLogin = clientLogin;
+	}
 
 	public MenuEntity() {
 		super();

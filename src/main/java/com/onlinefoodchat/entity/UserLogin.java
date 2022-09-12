@@ -2,6 +2,7 @@ package com.onlinefoodchat.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
@@ -10,89 +11,48 @@ import javax.persistence.Transient;
 
 public class UserLogin {
 
-
 	@Id
-	@GeneratedValue
-	private Integer id;
-	private String name;
-	private String email;
-	
-	@Transient
-	private String captcha;
-	
-	@Transient
-	private String hiddenCaptcha;
-	
-	@Transient
-	private String realCaptcha;
-
-	public UserLogin(Integer id, String name, String email, String captcha, String hiddenCaptcha, String realCaptcha) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.captcha = captcha;
-		this.hiddenCaptcha = hiddenCaptcha;
-		this.realCaptcha = realCaptcha;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer userId;
+	private String userName;
+	private String userEmail;
+	private String userPassword;
+	private String otp;
+	public String getOtp() {
+		return otp;
 	}
-
-	public UserLogin() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
-
-	public Integer getId() {
-		return id;
+	public Integer getUserId() {
+		return userId;
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
-
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
-	public String getEmail() {
-		return email;
+	public String getUserEmail() {
+		return userEmail;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-
-	public String getCaptcha() {
-		return captcha;
+	public String getUserPassword() {
+		return userPassword;
 	}
-
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
-
-	public String getHiddenCaptcha() {
-		return hiddenCaptcha;
-	}
-
-	public void setHiddenCaptcha(String hiddenCaptcha) {
-		this.hiddenCaptcha = hiddenCaptcha;
-	}
-
-	public String getRealCaptcha() {
-		return realCaptcha;
-	}
-
-	public void setRealCaptcha(String realCaptcha) {
-		this.realCaptcha = realCaptcha;
-	}
-
 	@Override
 	public String toString() {
-		return "UserLogin [id=" + id + ", name=" + name + ", email=" + email + ", captcha=" + captcha
-				+ ", hiddenCaptcha=" + hiddenCaptcha + ", realCaptcha=" + realCaptcha + "]";
+		return "UserLogin [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
+				+ userPassword + ", otp=" + otp + "]";
 	}
+	
 	
 }

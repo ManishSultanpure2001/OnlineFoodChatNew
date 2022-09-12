@@ -39,10 +39,6 @@
 	</nav>
 	<!--NAVBAR  -->
 
-	<div>
-		<div class="alert alert-success" role="alert"></div>
-
-	</div>
 
 	<div class="container">
 		<table class="table table-striped">
