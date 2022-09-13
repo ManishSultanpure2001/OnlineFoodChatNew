@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@page import="java.util.List"%>
+	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.onlinefoodchat.entity.MenuEntity"%>
 <!DOCTYPE html>
@@ -16,10 +16,10 @@
 <body>
 
 	<div class="container">
+		
 		<table class="table table-striped">
 			<thead class="bg-info text-white">
 				<tr>
-					
 					<th scope="col">Menu Name</th>
 					<th scope="col">Menu Image</th>
 					<th scope="col">Menu Price</th>
@@ -36,13 +36,24 @@
 						MenuEntity menuEntity = iterator.next();
 				%>
 				<tr>
-					
-					<td><%=menuEntity.getMenuName()%></td>
+
+					<td id="menuName"><%=menuEntity.getMenuName()%></td>
 					<td><img src="Image\\<%=menuEntity.getMenuImage()%>"
 						width='100' height='100'></td>
 					<td><%=menuEntity.getMenuPrice()%> Rs</td>
-					<td><%=menuEntity.getMenuPrice()%> Rs</td>
-					<td><a class="btn btn-sm btn-success" href="/editDish?menuId=<%=menuEntity.getMenuId()%>">Add Cart</a> </td>
+					<td>
+
+						<div>
+							<button id="dec" onclick="dec()">-</button>
+
+							<input class="col-md-2" type="text" id="incDecTextFiled"
+								readonly="readonly">
+
+							<button class="inc">+</button>
+						</div>
+					</td>
+					<td><a class="btn btn-sm btn-success"
+						href="/editDish?menuId=<%=menuEntity.getMenuId()%>">Add Cart</a></td>
 					<%
 						}
 					}
@@ -51,5 +62,20 @@
 			</tbody>
 		</table>
 	</div>
+
 </body>
 </html>
+<script type="text/javascript">
+	var count = 0;
+	$('#incDecTextFiled').val();
+
+	  	function dec(){
+			
+			totalCount.innerHTML = --count
+		}
+	function inc() {
+		console.log(document.getElementById("menuName"));
+
+		totalCount.value = ++count
+	}
+</script>

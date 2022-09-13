@@ -33,10 +33,10 @@
 								class="nav-item">View Order </span>
 						</a></li>
 						
-						<li><a href="#"> <i class="fas fa-database"></i> <span
+						<li><a href="#"> <i class="far fa-bell"></i> <span
 								class="nav-item">Notification </span>
 						</a></li>
-						<li><a href="ClientMyAccount.jsp"> <i class="fas fa-chart-bar"></i> <span
+						<li><a href="ClientMyAccount.jsp"> <i class="fas fa-universal-access"></i> <span
 								class="nav-item">My Account </span>
 						</a></li>
 						<li><a href="../login"> <i class="fas fa-cog"></i> <span

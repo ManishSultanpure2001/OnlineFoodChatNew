@@ -2,18 +2,19 @@ package com.onlinefoodchat.controller;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.service.RestoService;
 
@@ -68,7 +69,6 @@ public class RestoController {
 	/* Edit Dish */
 	@GetMapping("/editDish")
 	public ModelAndView editMenu(@ModelAttribute("menuId") int id) {
-		System.out.println(id);
 		globalId = id;
 		MenuEntity editData = restoService.getEditData(id);
 		modelAndView.addObject("data", editData);
@@ -80,7 +80,6 @@ public class RestoController {
 	@PostMapping("/updateSuccessful")
 	public ModelAndView SuccessUpdate(@ModelAttribute MenuEntity entity,
 			@RequestParam("multipart") MultipartFile multipart, HttpSession session) throws IOException {
-		System.out.println("en=" + globalId);
 		restoService.updateData(entity, globalId, multipart, session);
 		this.allMenu(session);
 		modelAndView.setViewName("ShowAllMenu");

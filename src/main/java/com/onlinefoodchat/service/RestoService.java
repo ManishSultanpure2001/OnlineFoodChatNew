@@ -29,7 +29,9 @@ public class RestoService {
 	private MenuRepository menuRepo;
 	@Autowired
 	private MenuRepository menuRepository;
+	
 	ClientLogin findByClientEmail;
+	
 	MenuEntity menuEntity;
 
 	/*
@@ -37,10 +39,8 @@ public class RestoService {
 	 */
 	public boolean check(HttpSession request) {
 		session = request;
-		System.out.println("Email=" + request.getAttribute("email"));
 		findByClientEmail = this.clientRepository.findByClientEmail((String) request.getAttribute("email"));
-		System.out.println(findByClientEmail.getClientPlan());
-		System.out.println(findByClientEmail.getRestoName());
+		
 		if (findByClientEmail.getRestoName() == null)
 			return true;
 		return false;
@@ -50,16 +50,15 @@ public class RestoService {
 
 	public List<MenuEntity> getAllMenu(HttpSession request) {
 
-		System.out.println((String) request.getAttribute("email"));
 		List<MenuEntity> findByclientemail2 = this.menuRepo.findByClientemail((String) request.getAttribute("email"));
-		System.out.println(findByclientemail2.toString());
 		return findByclientemail2;
 	}
 
 	/* Add Resto Name */
 	public boolean addRestoName(String rName) {
 		findByClientEmail.setRestoName(rName);
-		clientRepository.saveAndFlush(findByClientEmail);
+		System.out.println(findByClientEmail);
+		clientRepository.save(findByClientEmail);
 		return true;
 	}
 
@@ -91,8 +90,8 @@ public class RestoService {
 
 	/* Edit Dish */
 	public MenuEntity getEditData(int id) {
-		MenuEntity findById = this.menuRepo.findByMenuId(id);
-		return findById;
+		return this.menuRepo.findByMenuId(id);
+		 
 	}
 
 	/* Edit Dish Successfull */

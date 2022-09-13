@@ -82,14 +82,13 @@
 			dataType : "json",
 			success : function(response) {
 				console.log(response);
-				//var data = '';
 				swal("Good Job", "Register Successfully", "success");
 				setInterval(5000);
-				//window.location.href = "/views/clientLogin.jsp";
+				 window.location.href = "/views/userLogin.jsp";
 
 			},
 			error : function(error) {
-				//window.location.href = "/views/clintSignUp.jsp";
+			
 				swal("Somthing Went Wrong!", "Please Try Again", "error");
 				console.log(error);
 			},

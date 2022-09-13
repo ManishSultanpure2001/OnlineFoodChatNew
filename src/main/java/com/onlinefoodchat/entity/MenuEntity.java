@@ -19,12 +19,10 @@ public class MenuEntity {
 	@Column(nullable = true)
 	private String menuImage = "";
 
-
 	@ManyToOne
-	@JoinColumn(name="restoName")
+	@JoinColumn(name = "restoName")
 	private ClientLogin clientLogin;
-	
-	
+
 	public ClientLogin getClientLogin() {
 		return clientLogin;
 	}

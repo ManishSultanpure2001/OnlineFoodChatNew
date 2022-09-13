@@ -27,10 +27,12 @@
 					url : "/search?search=" + data,
 					success : function(data) {
 						$("#hiddenSearch").show();
-							$('a').remove("#removeAnc");
+						/* const data1 = document.getElementById("hiddenSearch");
+						data1.innerHTML = ''; */
+							  $('tr').remove("#removeAnc");  
 						console.log(data);
 						for(i=0;i<data.length;i++){
-							$("#hiddenSearch").append('<a class="active" href="/searchMenu?searchId='+data[i].id+'  &searchEmail='+data[i].clientEmail+'" id="removeAnc">'+data[i].restoName+'</a>');
+							$("#hiddenSearch").append('<tr id="removeAnc"><td><a class="active" href="/searchMenu?searchId='+data[i].id+'  &searchEmail='+data[i].clientEmail+'">'+data[i].restoName+'</a></td></tr>');
 						console.log("loop");
 						}
 						console.log("done");

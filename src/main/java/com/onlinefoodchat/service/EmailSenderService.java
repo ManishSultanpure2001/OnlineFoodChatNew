@@ -15,13 +15,13 @@ public class EmailSenderService {
 	public boolean mailSender(String toEmail ,String subject ,String body ) {
 		 SimpleMailMessage mailMessage
          = new SimpleMailMessage();
-		// Setting up necessary details
+			/* Setting up necessary details */
          mailMessage.setFrom("manishsultanpuretube@gmail.com");
          mailMessage.setTo(toEmail);
          mailMessage.setText(body);
          mailMessage.setSubject(subject);
 
-         // Sending the mail
+			/* Sending the mail */
          javaMailSender.send(mailMessage);
          System.out.println("Mail Send Successfully");
          return true;

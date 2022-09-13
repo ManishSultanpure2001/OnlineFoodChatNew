@@ -2,8 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 
 	<div class="topnav">
-		<a class="active" href="#home">Home</a> <a href="#about">MyAccount</a>
-		<a href="#contact">Contact</a>
+		<a class="active fa-solid fa-house-user" href="#home">Home</a> <a class="fa fa-user" href="UserMyAccount.jsp">    MyAccount</a>
+		<a class="fas fa-shopping-cart " href="userLogin.jsp">    My Cart</a>
+		<a class="fa fa-sign-out" href="userLogin.jsp">     Logout</a>
 		<div class="search-container">
 			<form action="">
 				<input type="text" placeholder="Search.." name="search"
@@ -17,8 +18,14 @@
   <p>Navigation bar with a search box and a submit button inside of it.</p>
   <p>Resize the browser window to see the responsive effect.</p> -->
 	</div>
- 						<div  class="row align-items-end">
- 						
-						<div  class="col-3 offset-lg-9" role="tablist" id="hiddenSearch">
-						</div>
-						 </div>
+ 						<div class="card col-md-2 offset-lg-10 fixed-top mt-5" style="" id="hiddenSearch">
+ 						 
+				 		<!-- <div  class="dropdown-menu"  role="tablist" id="hiddenSearch">  -->
+					   <!-- <ul class="col-3 offset-lg-9   dropdown-menu"  role="menu"  aria-labelledby="dropdownMenu" id="hiddenSearch"> 
+						  </ul> -->  
+						  <table class="col-3 offset-lg-9">
+			<tbody    id="searchData">
+			</tbody>
+		</table>
+					  </div>  
+						 

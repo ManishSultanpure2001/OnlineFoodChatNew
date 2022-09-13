@@ -10,5 +10,6 @@ import com.onlinefoodchat.entity.MenuEntity;
 @Repository
 public interface MenuRepository extends JpaRepository<MenuEntity, Integer> {
 	public List<MenuEntity> findByClientemail(String clientEmail);
+
 	public MenuEntity findByMenuId(int id);
 }

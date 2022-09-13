@@ -7,14 +7,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.onlinefoodchat.entity.ClientLogin;
-import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.repository.ClientRepository;
 
 @Service
@@ -22,10 +20,10 @@ public class ClientServices {
 	boolean validate = true;
 	@Autowired
 	private ClientRepository clintRepository;
-	//@Autowired 
-	private ClientLogin clientLogin;
 	
-	/* Client Login */ 
+	private ClientLogin clientLogin;
+
+	/* Client Login */
 	public boolean clintRegister(ClientLogin client) {
 
 		Pattern patternPassword = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Z a-z 0-9 \\s_]).{5,20}$");
@@ -49,44 +47,40 @@ public class ClientServices {
 	public ClientLogin cilentLogin(ClientLogin client) {
 		return clintRepository.findByClientEmailAndClientPassword(client.getClientEmail(), client.getClientPassword());
 	}
-	
+
 	/* Client Plan */
-	
+
 	public ClientLogin myPlan(HttpSession session) {
-	
-		ClientLogin findByClientEmail = clintRepository.findByClientEmail(""+session.getAttribute("email"));
-		System.out.println("find= "+findByClientEmail);
-		return findByClientEmail;
+
+		return clintRepository.findByClientEmail("" + session.getAttribute("email"));
+
 	}
-	
-	/*Date Check*/
+
+	/* Date Check */
 	public boolean dateChack(String date) throws ParseException {
-		 Date curruntDate = new Date();
-		 Date newDate = new java.sql.Date(curruntDate.getYear(), curruntDate.getMonth(), curruntDate.getDate());
-		
-		 SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-      Date d1 = sdformat.parse(date);
-       Date d2 = sdformat.parse(""+newDate);
-       
-       sdformat.format(d1);
-       sdformat.format(d2);
-		System.out.println(new java.sql.Date(curruntDate.getYear(), curruntDate.getMonth(), curruntDate.getDate()));
-		 if(d1.compareTo(d2) > 0) {
-		System.out.println("upto date");
-			 return true;
-		 }
-		 return false;
+		Date curruntDate = new Date();
+		Date newDate = new java.sql.Date(curruntDate.getYear(), curruntDate.getMonth(), curruntDate.getDate());
+
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+		Date d1 = sdformat.parse(date);
+		Date d2 = sdformat.parse("" + newDate);
+
+		sdformat.format(d1);
+		sdformat.format(d2);
+
+		if (d1.compareTo(d2) > 0) {
+			// upto date;
+			return true;
+		}
+		return false;
 	}
-	
+
 	/* Renew Plan */
 	public boolean renewPlan(ClientLogin clientLogin) throws ParseException {
-		System.out.println("emil=  "+clientLogin.getClientEmail());
-		
 
-		System.out.println("not come"+clientLogin.getId());
-		ClientLogin clientLogin1= clintRepository.findByClientEmail(clientLogin.getClientEmail());
-		Optional<ClientLogin> realData= clintRepository.findById(clientLogin1.getId());
-		ClientLogin login=realData.get();
+		ClientLogin clientLogin1 = clintRepository.findByClientEmail(clientLogin.getClientEmail());
+		Optional<ClientLogin> realData = clintRepository.findById(clientLogin1.getId());
+		ClientLogin login = realData.get();
 		int incrimentValue = 0;
 		Date date = new Date();
 		if (clientLogin.getClientPlan().equals("One Month"))
@@ -98,13 +92,12 @@ public class ClientServices {
 		login.setStartDate(new java.sql.Date(date.getYear(), date.getMonth(), date.getDate()));
 		login.setEndDate(new java.sql.Date(date.getYear(), date.getMonth() + incrimentValue, date.getDate()));
 		login.setClientPlan(clientLogin.getClientPlan());
-		if(!dateChack(""+login.getEndDate())) {
-			System.out.println("come");
-		clintRepository.saveAndFlush(login);
-		return true;
-		} 
-		System.out.println("Nor come");
+		if (!dateChack("" + login.getEndDate())) {
+
+			clintRepository.saveAndFlush(login);
+			return true;
+		}
 		return false;
-	
+
 	}
 }

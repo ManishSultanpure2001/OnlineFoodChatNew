@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,6 @@ public class ClientControler extends HttpServlet {
 	@SuppressWarnings("deprecation")
 	@PostMapping("/clientSignup")
 	public ResponseEntity<Object> clientSignUp2(@RequestBody ClientLogin clientLogin) {
-		System.out.println(clientLogin.getClientEmail());
 		int incrimentValue = 0;
 		date = new Date();
 		if (clientLogin.getClientPlan().equals("One Month"))
@@ -68,27 +66,21 @@ public class ClientControler extends HttpServlet {
 
 		if (clientService.clintRegister(clientLogin) && randomWithNextInt == clientLogin.getOtp()) {
 			return ResponseEntity.ok(clientLogin);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
+		 
 	}
 
 	@PostMapping("/clientLogin")
 	public ResponseEntity<Object> clintLogin2(@RequestBody ClientLogin clientLogin, HttpSession session) {
 		ClientLogin obj = clientService.cilentLogin(clientLogin);
-		System.out.println(clientLogin.getOtp());
-		System.out.println(randomWithNextInt);
-		System.out.println("come");
 //		if (obj != null && randomWithNextInt == clientLogin.getOtp()) {
 			 if (obj != null) {
-			System.out.println("in login");
-			System.out.println(clientLogin.getId());
-			System.out.println(clientLogin.getClientEmail());
 			session.setAttribute("email", clientLogin.getClientEmail());
 			return ResponseEntity.ok(clientLogin);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 		}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
+		
 	}
 	/* Client Plan*/
 	 
@@ -104,7 +96,6 @@ public class ClientControler extends HttpServlet {
 	@ResponseBody
 	@GetMapping("/plan")
 	public String checkPlan(@RequestParam String lastDate) throws ParseException {
-		System.out.println(lastDate);
 		boolean dateChack = clientService.dateChack(lastDate);
 		if(dateChack)
 			return "ok";
@@ -121,10 +112,9 @@ public class ClientControler extends HttpServlet {
 			if (clientService.renewPlan(clientLogin)) {
 				System.out.println("pass");
 				return ResponseEntity.ok(clientLogin);
-			} else {
-				System.out.println("fail");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
 			}
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
+			
 
 		}
 	 

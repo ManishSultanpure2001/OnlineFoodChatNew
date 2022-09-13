@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class ClientLogin {
@@ -40,7 +39,7 @@ public class ClientLogin {
 		this.clientPassword = clientPassword;
 		this.clientPlan = clientPlan;
 		this.otp = otp;
-		restoName = restoName;
+		this.restoName = restoName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
@@ -114,7 +113,7 @@ public class ClientLogin {
 	}
 
 	public void setRestoName(String restoName) {
-		restoName = restoName;
+		this.restoName = restoName;
 	}
 
 	@Override
