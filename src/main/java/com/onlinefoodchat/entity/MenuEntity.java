@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+//@Table(uniqueConstraints = @UniqueConstraint(name="menuName",columnNames = "menuName"))
 public class MenuEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

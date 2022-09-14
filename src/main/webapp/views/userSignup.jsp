@@ -1,6 +1,8 @@
 <%@page import="org.springframework.web.servlet.ModelAndView"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,28 +31,29 @@
 						<!-- 	<form method="POST"> -->
 
 						<div class="form-group">
-							<label>Enter Name</label> <input type="text"
-								class="form-control" name="userName" id="name" required="required">
+							<label class="fa fa-user-circle"> Enter Name</label> <input
+								type="text" class="form-control" name="userName" id="name"
+								placeholder="Enter Name" required="required">
 						</div>
 						<div class="form-group">
-							<label>Enter Email</label> <input type="email"
-								class="form-control" name="userEmail" id="emailId" required="required">
+							<label class="fa fa-envelope"> Enter Email</label> <input
+								 placeholder="Enter Email" type="email" class="form-control" name="userEmail" id="emailId"
+								required="required">
 						</div>
 
 						<div class="form-group">
-							<label>Enter Password</label> <input type="password"
-								class="form-control" name="userPassword" id="password" required="required">
+							<label class="fa fa-unlock-alt"> Enter Password</label> <input
+								placeholder="Enter Password" type="password" class="form-control" name="userPassword"
+								id="password" required="required">
 						</div>
 						<br> <br>
 						<div class="row g-2">
 
-							<div class="col-md">
-								<div class="form-floating">
-									<div class="g-recaptcha"
-										data-sitekey="6LfAseghAAAAAIuXMB8x0VmAemKfsCdPz1VA1ROm">
-									</div>
-
-								</div>
+							<div class="col-md-6">
+								<img alt="captcha" src="${path}/captcha-servlet">
+							</div>
+							<div class="col-md-6">
+								<input class="form-control" id="captchaText" type="text" placeholder="Enter Captcha" name="captcha" required="required">
 							</div>
 
 						</div>
@@ -72,7 +75,7 @@
 			"userName" : $("#name").val(),
 			"userEmail" : $("#emailId").val(),
 			"userPassword" : $("#password").val(),
-			
+			"captcha"	:$("#captchaText").val(),
 		};
 		$.ajax({
 			url : "/save",
@@ -84,11 +87,11 @@
 				console.log(response);
 				swal("Good Job", "Register Successfully", "success");
 				setInterval(5000);
-				 window.location.href = "/views/userLogin.jsp";
+				window.location.href = "/views/userLogin.jsp";
 
 			},
 			error : function(error) {
-			
+
 				swal("Somthing Went Wrong!", "Please Try Again", "error");
 				console.log(error);
 			},

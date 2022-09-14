@@ -8,10 +8,11 @@
 
 #deshboardHading {
 	color: white;
+	
 }
 
 .deshboradNav:hover {
-	width: 280px;
+	width: 380px;
 	transition: 1s;
 }
 
@@ -36,7 +37,9 @@
 	bottom: 0;
 	height: 100vh;
 	left: 0;
-	width: 100px;
+	width: 250px;
+	padding: 10px;
+	word-spacing:15px;
 	/* width: 280px; */
 	background: #fff;
 	overflow: hidden;
@@ -66,12 +69,14 @@
 }
  
 .deshboradNav-item {
+	
 	position: relative;
 	top: 12px;
 	margin-left: 10px;
 }
 
 a:hover {
+	
 	background: #eee;
 }
 

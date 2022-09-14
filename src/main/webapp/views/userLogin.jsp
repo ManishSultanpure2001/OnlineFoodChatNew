@@ -33,13 +33,13 @@
 						<!-- 	<form method="POST"> -->
 
 						<div class="form-group">
-							<label>Enter Email</label> <input type="email"
+							<label class="fa fa-envelope">             Enter Email</label> <input type="email"
 								class="form-control" name="userEmail" id="emailId">
 						</div>
 
 
 						<div class="form-group">
-							<label>Enter Password</label> <input type="password"
+							<label class="fa fa-unlock-alt">             Enter Password</label> <input type="password"
 								class="form-control" name="userPassword" id="password">
 						</div>
 
