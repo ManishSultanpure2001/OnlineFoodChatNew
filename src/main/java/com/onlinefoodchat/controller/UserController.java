@@ -1,5 +1,6 @@
 package com.onlinefoodchat.controller;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.entity.UserLogin;
 import com.onlinefoodchat.service.EmailSenderService;
 import com.onlinefoodchat.service.UserService;
+
+import cn.apiclub.captcha.Captcha;
 
 @Controller
 public class UserController {
@@ -49,12 +53,14 @@ public class UserController {
 	/* User SignUp */
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveUser(@RequestBody UserLogin user, HttpServletRequest request) {
+		if(user.getCaptcha().equals(request.getSession().getAttribute("captcha"))) {
 		if(service.createUser(user,request)) {
 			return ResponseEntity.ok(user);
 		}
-		else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not registerd");
 		}
+		 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not registerd");
+		 
 		
 	}
 	
@@ -84,9 +90,11 @@ public class UserController {
 	/* All Searched Menu */
 	@ResponseBody
 	@GetMapping("/searchMenu")
-	public ModelAndView searchMenu(@RequestParam int searchId,@RequestParam String searchEmail) {	
+	public ModelAndView searchMenu(@RequestParam int searchId,@RequestParam String searchEmail,@RequestParam String restoName) {	
 		List<MenuEntity> searchedMenu = service.getSearchedMenu(searchId,searchEmail);
+		
 		modelAndView.addObject("allMenu",searchedMenu);
+		modelAndView.addObject("restoName",restoName);
 		modelAndView.setViewName("UserSearchedDishList");
 	return modelAndView;
 	}

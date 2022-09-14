@@ -14,7 +14,7 @@
 <body>
 	<!-- NAVBAR  -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">All Menu</a>
+		<h1 style="color:white">All Menu</h1>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,7 +25,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="/views/clientDeshboard.jsp">DashBoard <span
+					href="/views/clientDeshboard.jsp">           DashBoard <span
 						class="sr-only">(current)</span>
 				</a></li>
 				</li>
@@ -53,7 +53,7 @@
 			</thead>
 			<tbody>
 				<%
-					List<MenuEntity> data = (List<MenuEntity>) request.getAttribute("allDish");
+				List<MenuEntity> data = (List<MenuEntity>) request.getAttribute("allDish");
 				if (data != null) {
 					Iterator<MenuEntity> iterator = data.iterator();
 					while (iterator.hasNext()) {

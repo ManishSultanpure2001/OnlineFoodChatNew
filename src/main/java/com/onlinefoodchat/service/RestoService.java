@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,9 +31,9 @@ public class RestoService {
 	private MenuRepository menuRepo;
 	@Autowired
 	private MenuRepository menuRepository;
-	
+
 	ClientLogin findByClientEmail;
-	
+
 	MenuEntity menuEntity;
 
 	/*
@@ -40,7 +42,7 @@ public class RestoService {
 	public boolean check(HttpSession request) {
 		session = request;
 		findByClientEmail = this.clientRepository.findByClientEmail((String) request.getAttribute("email"));
-		
+
 		if (findByClientEmail.getRestoName() == null)
 			return true;
 		return false;
@@ -65,33 +67,42 @@ public class RestoService {
 	/* Add Menu */
 	public boolean addMenuData(MenuEntity data, MultipartFile imageFile, HttpSession request) throws IOException {
 		data.setClientemail("" + request.getAttribute("email"));
-		
+
 		String imageName = imageFile.getOriginalFilename().trim();
 		data.setMenuImage(imageName);
-		if(imageName!=null) {
-		inputStreamImage = imageFile.getInputStream();
-		try {
-			fileOutputStreamImage = new FileOutputStream("D:\\OnlineFoodChat\\src\\main\\webapp\\Image\\" + imageName);
-			int bytesImage = 0;
-			while ((bytesImage = inputStreamImage.read()) != -1) {
+		if (imageName != null) {
+			inputStreamImage = imageFile.getInputStream();
+			try {
+				fileOutputStreamImage = new FileOutputStream(
+						"D:\\OnlineFoodChat\\src\\main\\webapp\\Image\\" + imageName);
+				int bytesImage = 0;
+				while ((bytesImage = inputStreamImage.read()) != -1) {
 
-				fileOutputStreamImage.write(bytesImage);
+					fileOutputStreamImage.write(bytesImage);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-		} 
-		catch(Exception e) {
-			System.out.println(e);
 		}
+		ClientLogin findByClientEmail2 = clientRepository.findByClientEmail("" + request.getAttribute("email"));
+		data.setClientLogin(findByClientEmail2);
+
+		List<MenuEntity> menuList = this.menuRepo.findByClientemail((String) request.getAttribute("email"));
+		System.out.println("get" + menuList);
+		boolean menuPrasent = true;
+		for (int i = 0; i < menuList.size(); i++) {
+			if (menuList.get(i).getMenuName().equals(data.getMenuName()))
+				menuPrasent = false;
 		}
-		 ClientLogin findByClientEmail2 = clientRepository.findByClientEmail(""+request.getAttribute("email"));
-		 data.setClientLogin(findByClientEmail2);
-		 menuRepository.save(data);
+		if (menuPrasent)
+			menuRepository.save(data);
 		return true;
 	}
 
 	/* Edit Dish */
 	public MenuEntity getEditData(int id) {
 		return this.menuRepo.findByMenuId(id);
-		 
+
 	}
 
 	/* Edit Dish Successfull */
@@ -114,6 +125,5 @@ public class RestoService {
 		menuRepository.deleteById(menuId);
 
 	}
-	
-	
+
 }

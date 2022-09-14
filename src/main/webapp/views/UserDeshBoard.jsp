@@ -32,7 +32,7 @@
 							  $('tr').remove("#removeAnc");  
 						console.log(data);
 						for(i=0;i<data.length;i++){
-							$("#hiddenSearch").append('<tr id="removeAnc"><td><a class="active" href="/searchMenu?searchId='+data[i].id+'  &searchEmail='+data[i].clientEmail+'">'+data[i].restoName+'</a></td></tr>');
+							$("#hiddenSearch").append('<tr id="removeAnc"><td><a class="active" href="/searchMenu?searchId='+data[i].id+'&searchEmail='+data[i].clientEmail+'&restoName='+data[i].restoName+'">'+data[i].restoName+'</a></td></tr>');
 						console.log("loop");
 						}
 						console.log("done");

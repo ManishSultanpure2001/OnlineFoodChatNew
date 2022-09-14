@@ -31,13 +31,13 @@
 						<h4 class="text-center text-primary">Client Login</h4>
 
 						<div class="form-group">
-							<label>Enter Email</label> <input type="email"
+							<label class="fa fa-envelope">         Enter Email</label> <input type="email"
 								class="form-control" name="clientEmail" id="emailId">
 						</div>
 
 
 						<div class="form-group">
-							<label>Enter Password</label> <input type="password"
+							<label class="fa fa-unlock-alt">         Enter Password</label> <input type="password"
 								class="form-control" name="clientPassword" id="password">
 						</div>
 

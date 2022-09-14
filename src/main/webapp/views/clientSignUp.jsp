@@ -29,17 +29,17 @@
 						<!-- 	<form method="POST"> -->
 
 						<div class="form-group">
-							<label>Enter Email</label> <input type="email"
+							<label class="fa fa-envelope">     Enter Email</label> <input type="email"
 								class="form-control" name="clientEmail" id="emailId">
 						</div>
 
 						<div class="form-group">
-							<label>Enter Phone</label> <input type="number"
+							<label class="fa fa-phone">     Enter Phone</label> <input type="number"
 								class="form-control" name="clientPhone" id="phone">
 						</div>
 
 						<div class="form-group">
-							<label>Enter Password</label> <input type="password"
+							<label class="fa fa-unlock-alt">     Enter Password</label> <input type="password"
 								class="form-control" name="clientPassword" id="password">
 						</div>
 

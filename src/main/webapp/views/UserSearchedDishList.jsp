@@ -16,6 +16,13 @@
 <body>
 
 	<div class="container">
+	<br>
+	<center>
+		<h1>Resto Name:-   <%= (String)request.getAttribute("restoName")%></h1>
+		
+	</center>
+		<br>
+		<br>
 		
 		<table class="table table-striped">
 			<thead class="bg-info text-white">
@@ -29,7 +36,7 @@
 			</thead>
 			<tbody>
 				<%
-					List<MenuEntity> data = (List<MenuEntity>) request.getAttribute("allMenu");
+				List<MenuEntity> data = (List<MenuEntity>) request.getAttribute("allMenu");
 				if (data != null) {
 					Iterator<MenuEntity> iterator = data.iterator();
 					while (iterator.hasNext()) {
@@ -44,12 +51,12 @@
 					<td>
 
 						<div>
-							<button id="dec" onclick="dec()">-</button>
+							<button class="fa fa-minus" onclick="dec(<%=menuEntity.getMenuId()%>)"></button>
 
-							<input class="col-md-2" type="text" id="incDecTextFiled"
-								readonly="readonly">
+							<input class="col-md-2" type="text" id="incDecTextFiled<%=menuEntity.getMenuId()%>"
+								readonly="readonly" value="0">
 
-							<button class="inc">+</button>
+							<button class="fa fa-plus" onclick="inc(<%=menuEntity.getMenuId()%>)"></button>
 						</div>
 					</td>
 					<td><a class="btn btn-sm btn-success"
@@ -66,16 +73,20 @@
 </body>
 </html>
 <script type="text/javascript">
-	var count = 0;
-	$('#incDecTextFiled').val();
+	
+	var totalCount=0;
 
-	  	function dec(){
-			
-			totalCount.innerHTML = --count
+	  	function dec(id){
+	  		
+			var v=$("#incDecTextFiled"+id).val();
+			if(v>0)
+			v=parseInt(v)-1;
+			$("#incDecTextFiled"+id).val(v);
 		}
-	function inc() {
-		console.log(document.getElementById("menuName"));
-
-		totalCount.value = ++count
+	function inc(id) {	
+	
+		var v=$("#incDecTextFiled"+id).val();
+		v=parseInt(v)+1;
+		$("#incDecTextFiled"+id).val(v);
 	}
 </script>

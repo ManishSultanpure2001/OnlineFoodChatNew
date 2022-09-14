@@ -23,13 +23,16 @@
 						<li><a href="#" class="logo"> <img src="profile.png">
 								<span class="nav-item">Your Profile</span>
 						</a></li>
-						<li><a href="../checkResto"> <i class="fas fa-menorah"></i>
-								<span class="nav-item">Add resto </span>
+						<li><a href="../checkResto"> <i class="fa fa-cutlery"></i>
+								<span class="nav-item">Add Resto </span>
 						</a></li>
-						<li><a href="../allMenu"> <i class="fas fa-comment"></i>
+						<li><a href="../checkResto"> <i class="fas fa-menorah"></i>
+								<span class="nav-item">Add Menu </span>
+						</a></li>
+						<li><a href="../allMenu"> <i class="fas fa-hamburger"></i>
 								<span class="nav-item">All Menu </span>
 						</a></li>
-						<li><a href="#"> <i class="fas fa-comment"></i> <span
+						<li><a href="#"> <i  class="fa fa-eye"></i> <span
 								class="nav-item">View Order </span>
 						</a></li>
 						
