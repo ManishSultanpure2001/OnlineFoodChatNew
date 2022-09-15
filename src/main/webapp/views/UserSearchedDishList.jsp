@@ -17,11 +17,15 @@
 
 	<div class="container">
 	<br>
-	<center>
-		<h1>Resto Name:-   <%= (String)request.getAttribute("restoName")%></h1>
-		
-	</center>
-		<br>
+	<div class="row">
+	
+	<div col-6>
+	<h1>Resto Name:- </h1>
+	</div>
+	<div col-6 >
+		<h1 id="restoName" style="color:blue;"><%= (String)request.getAttribute("restoName")%></h1>
+	</div>
+	</div>
 		<br>
 		
 		<table class="table table-striped">
@@ -44,10 +48,11 @@
 				%>
 				<tr>
 
-					<td id="menuName"><%=menuEntity.getMenuName()%></td>
-					<td><img src="Image\\<%=menuEntity.getMenuImage()%>"
-						width='100' height='100'></td>
-					<td><%=menuEntity.getMenuPrice()%> Rs</td>
+					<td ><p id="menuName<%=menuEntity.getMenuId()%>"><%=menuEntity.getMenuName()%></p></td>
+					<td><p><img src="Image\\<%=menuEntity.getMenuImage()%>"
+						width='100' height='100'></p></td>
+						<input type="text" id="menuImage<%=menuEntity.getMenuId()%>" value="<%=menuEntity.getMenuImage()%>" hidden>
+					<td ><p id="menuPrice<%=menuEntity.getMenuPrice()%>"><%=menuEntity.getMenuPrice()%></p></td>
 					<td>
 
 						<div>
@@ -59,8 +64,8 @@
 							<button class="fa fa-plus" onclick="inc(<%=menuEntity.getMenuId()%>)"></button>
 						</div>
 					</td>
-					<td><a class="btn btn-sm btn-success"
-						href="/editDish?menuId=<%=menuEntity.getMenuId()%>">Add Cart</a></td>
+					<td><button class="btn btn-sm btn-success"
+						onclick="addCart(<%=menuEntity.getMenuId()%>,<%=menuEntity.getMenuPrice()%>)">Add Cart</button></td>
 					<%
 						}
 					}
@@ -75,18 +80,49 @@
 <script type="text/javascript">
 	
 	var totalCount=0;
-
+	var quantity=0;
 	  	function dec(id){
-	  		
+	  		quantity=id;
 			var v=$("#incDecTextFiled"+id).val();
 			if(v>0)
 			v=parseInt(v)-1;
 			$("#incDecTextFiled"+id).val(v);
 		}
 	function inc(id) {	
-	
+		quantity=id;
 		var v=$("#incDecTextFiled"+id).val();
 		v=parseInt(v)+1;
 		$("#incDecTextFiled"+id).val(v);
 	}
+	
+	function addCart(menuId,price){
+		
+		var fieldValues = {
+			"restoName" : $("#restoName").html(),
+			"menuName" : $("#menuName"+menuId).html(),
+			"menuImage" : $("#menuImage"+menuId).val(),
+			"menuPrice" : $("#menuPrice"+price).html(),
+			"menuQuantity"	: $("#incDecTextFiled"+quantity).val(),
+		};
+		console.log(fieldValues);
+		$.ajax({
+			url : "/addCart",
+			data : JSON.stringify(fieldValues),
+			contentType : "application/json",
+			type : "POST",
+			success : function(response) {
+				console.log(response);
+				swal("Good Job", "Dish Added Successfully", "success");
+				setInterval(5000);
+				//window.location.href = "/views/userLogin.jsp";
+
+			},
+			error : function(error) {
+		
+				swal("Somthing Went Wrong!", "Please Try Again", "error");
+				console.log(error);
+			},
+		});
+	}
+	
 </script>
