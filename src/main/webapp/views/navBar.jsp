@@ -3,7 +3,7 @@
 
 	<div class="topnav">
 		<a class="active fa-solid fa-house-user" href="/">Home</a> <a class="fa fa-user" href="UserMyAccount.jsp">    MyAccount</a>
-		<a class="fas fa-shopping-cart " href="userLogin.jsp">    My Cart</a>
+		<a class="fas fa-shopping-cart " href="/myOrder">    My Cart</a>
 		<a class="fa fa-sign-out" href="userLogin.jsp">     Logout</a>
 		<div class="search-container">
 			<form action="">

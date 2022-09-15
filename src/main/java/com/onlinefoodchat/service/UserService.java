@@ -16,10 +16,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.onlinefoodchat.entity.AddCart;
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.entity.ReCaptchaResponse;
 import com.onlinefoodchat.entity.UserLogin;
+import com.onlinefoodchat.repository.AddCartRespository;
 import com.onlinefoodchat.repository.ClientRepository;
 import com.onlinefoodchat.repository.MenuRepository;
 import com.onlinefoodchat.repository.UserRepository;
@@ -34,13 +36,13 @@ public class UserService {
 	private RestTemplate restTemplate;
 	@Autowired
 	private MenuRepository menuRepo;
-
+	@Autowired
+	private AddCartRespository addCartRespository;
 	private Matcher matcherPassword;
 	private Pattern patternPassword;
 
-	 
-	 /* User Registration*/
-	 
+	/* User Registration */
+
 	public boolean createUser(UserLogin user, HttpServletRequest request) {
 		String captchaResponse = request.getParameter("g-recaptcha-response");
 		String url = "https://www.google.com/recaptcha/api/siteverify";
@@ -83,6 +85,7 @@ public class UserService {
 		return menuRepo.findByClientemail(email);
 	}
 
+	/* Reset Password */
 	public boolean resetPass(UserLogin userLogin, String email) {
 
 		UserLogin login = repo.findByUserEmail(email);
@@ -94,5 +97,28 @@ public class UserService {
 			return true;
 		}
 		return false;
+	}
+
+	/* Add Cart */
+	@Transactional
+	public boolean saveCart(AddCart addCart,String session) {
+		addCart.setUserEmail(session);
+		
+		addCart.setTotlePrice(addCart.getMenuPrice()*addCart.getMenuQuantity());
+		List<AddCart> findByRestoNameAndUserEmail = addCartRespository.findByRestoNameAndUserEmail(addCart.getRestoName(), session);
+		
+		if( findByRestoNameAndUserEmail==null || findByRestoNameAndUserEmail.isEmpty()){
+			addCartRespository.deleteDish(addCart.getUserEmail());
+			addCartRespository.save(addCart);
+		}
+		else {
+			addCartRespository.save(addCart);
+		}
+		return true;
+	}
+
+	public List<AddCart> myOrder(String usreEmail) {
+		List<AddCart> findByUserEmail = addCartRespository.findByUserEmail(usreEmail);
+		return findByUserEmail;
 	}
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onlinefoodchat.entity.AddCart;
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.entity.UserLogin;
@@ -117,6 +118,25 @@ public class UserController {
 			System.out.println("true Condition"+userLogin.getOtp());
 			return ResponseEntity.ok("ok");}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not ok");
+	}
+	
+	
+	/* Add Cart */
+	@PostMapping("/addCart")
+	public ResponseEntity<String> addCart(@RequestBody AddCart addCart,HttpSession session){
+		
+ 		 if(service.saveCart(addCart,""+session.getAttribute("email"))) {
+			return ResponseEntity.ok("ok");}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not ok");
+	}
+
+	/* My Order */
+	@GetMapping("/myOrder")
+	public ModelAndView order(HttpSession session) {
+			List<AddCart> myOrder = service.myOrder(""+session.getAttribute("email"));
+		modelAndView.setViewName("MyCart");
+		modelAndView.addObject("allAddedCart", myOrder);
+		return modelAndView;
 	}
 	
 	/* Email Send Without Plan */

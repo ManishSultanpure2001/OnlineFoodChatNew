@@ -51,7 +51,7 @@
 
 			</div>
 		</section>
-		</section>
+		
 	</div>
 
 </body>
