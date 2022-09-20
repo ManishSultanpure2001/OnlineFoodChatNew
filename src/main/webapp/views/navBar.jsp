@@ -2,7 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 
 	<div class="topnav">
+	<button type="button" class="btn btn-primary position-relative">
+  Notifications
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button>
 		<a class="active fa-solid fa-house-user" href="/">Home</a> <a class="fa fa-user" href="UserMyAccount.jsp">    MyAccount</a>
+	
 		<a class="fas fa-shopping-cart " href="/myOrder">    My Cart</a>
 		<a class="fa fa-sign-out" href="userLogin.jsp">     Logout</a>
 		<div class="search-container">

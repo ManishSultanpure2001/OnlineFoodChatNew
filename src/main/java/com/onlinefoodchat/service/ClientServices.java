@@ -3,25 +3,36 @@ package com.onlinefoodchat.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.onlinefoodchat.entity.ClientLogin;
+import com.onlinefoodchat.entity.MyOrders;
+import com.onlinefoodchat.entity.OrderProductList;
 import com.onlinefoodchat.repository.ClientRepository;
+import com.onlinefoodchat.repository.MyOrdersRepository;
+import com.onlinefoodchat.repository.NotificationRepository;
+import com.onlinefoodchat.repository.OrderProductListRepository;
 
 @Service
 public class ClientServices {
 	boolean validate = true;
 	@Autowired
 	private ClientRepository clintRepository;
-	
-
+	@Autowired 
+	private MyOrdersRepository myOrdersRepository;
+	@Autowired
+	private OrderProductListRepository listRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 	private ClientLogin clientLogin;
 
 	/* Client Login */
@@ -100,5 +111,60 @@ public class ClientServices {
 		}
 		return false;
 
+	}
+
+	/* List Of Resto Orders */
+	
+	public List<MyOrders> getAllOrder(String email) {
+		ClientLogin clientEmail = clintRepository.findByClientEmail(email);
+		try{
+		return myOrdersRepository.findByRestoName(clientEmail.getRestoName());
+		}
+		catch(NullPointerException exception) {
+			System.out.println("exception sads");
+			return myOrdersRepository.findByRestoName(clientEmail.getRestoName());
+		}
+	}
+
+	/* List Of Menu in Order */
+	@Transactional
+	public List<OrderProductList> getMenuList(int id) {
+		try{return listRepository.menuList(id);}
+		catch(NullPointerException exception) {
+			System.out.println("exception sads");
+			return listRepository.menuList(id);
+		}
+		
+	}
+
+	/* Delete Order by Resto Side */
+
+	@Transactional
+	public List<MyOrders> getDeletedOrder(int id,String restoName) {
+		List<MyOrders> findByRestoName=null;;
+		try {
+			System.out.println(restoName);
+			MyOrders myOrders=myOrdersRepository.findById(id).get();
+			int flag=listRepository.deleteByMyOrders(myOrders);
+			findByRestoName = myOrdersRepository.findByRestoName(restoName);
+			System.out.println(findByRestoName);
+		}
+		catch(NullPointerException|ClassCastException  exception) {
+		exception.printStackTrace();
+		}
+		return findByRestoName;
+	}
+	
+	/* Update Status */
+	@Transactional
+	public List<MyOrders> updateOrderStatus(String id,String restoName) {
+			//listRepository.updateStatus("completed", id);
+		String orderMessage="order has been Packed by "+ restoName+" Restorent";
+			MyOrders myOrders=myOrdersRepository.findById(Integer.parseInt(id)).get();
+			myOrders.setOrderStatus("completed");
+			myOrdersRepository.save(myOrders);
+			notificationRepository.updateUserNotification("completed", orderMessage,""+myOrders.getUserId(),""+myOrders.getOrderId());
+	List<MyOrders> findByRestoName = myOrdersRepository.findByRestoName(restoName);
+	return findByRestoName;
 	}
 }

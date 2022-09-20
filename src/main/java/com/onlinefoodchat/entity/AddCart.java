@@ -17,8 +17,16 @@ public class AddCart {
 	private String menuImage;
 	private int menuPrice;
 	private int totlePrice;
+	private double sumOfTotlePrice;
 	private int menuQuantity;
 	
+	
+	public double getSumOfTotlePrice() {
+		return sumOfTotlePrice;
+	}
+	public void setSumOfTotlePrice(double sumOfTotlePrice) {
+		this.sumOfTotlePrice = sumOfTotlePrice;
+	}
 	public String getMenuImage() {
 		return menuImage;
 	}
@@ -71,10 +79,9 @@ public class AddCart {
 	public String toString() {
 		return "AddCart [cartId=" + cartId + ", userEmail=" + userEmail + ", menuName=" + menuName + ", restoName="
 				+ restoName + ", menuImage=" + menuImage + ", menuPrice=" + menuPrice + ", totlePrice=" + totlePrice
-				+ ", menuQuantity=" + menuQuantity + "]";
+				+ ", sumOfTotlePrice=" + sumOfTotlePrice + ", menuQuantity=" + menuQuantity + "]";
 	}
+	
  
-	
-	
 	
 }

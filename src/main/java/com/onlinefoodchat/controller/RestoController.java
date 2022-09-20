@@ -26,6 +26,7 @@ public class RestoController {
 	@Autowired
 	RestoService restoService;
 
+	/* Check Resto Register or not */
 	@GetMapping("/checkResto")
 	public ModelAndView CheckResto(HttpSession session) {
 		if (restoService.check(session)) {

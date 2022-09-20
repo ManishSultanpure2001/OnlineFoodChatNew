@@ -14,8 +14,15 @@
 	<center>
 		<h1 id="deshboardHading">Welcome In Deshboard</h1>
 	</center>
+								<button type="button" class="btn btn-primary position-relative far fa-bell offset-lg-9">
+  Notifications
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+  </button>
 	<div class="container">
-
+	
 		<section class="attendance">
 			<div class="attendance-list">
 				<nav class="deshboradNav">
@@ -32,13 +39,10 @@
 						<li><a href="../allMenu"> <i class="fas fa-hamburger"></i>
 								<span class="nav-item">All Menu </span>
 						</a></li>
-						<li><a href="#"> <i  class="fa fa-eye"></i> <span
+						<li><a href="../viewOrder"> <i  class="fa fa-eye"></i> <span
 								class="nav-item">View Order </span>
 						</a></li>
-						
-						<li><a href="#"> <i class="far fa-bell"></i> <span
-								class="nav-item">Notification </span>
-						</a></li>
+	
 						<li><a href="ClientMyAccount.jsp"> <i class="fas fa-universal-access"></i> <span
 								class="nav-item">My Account </span>
 						</a></li>
@@ -50,6 +54,8 @@
 				</nav>
 
 			</div>
+	
+
 		</section>
 		
 	</div>
