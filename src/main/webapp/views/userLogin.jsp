@@ -91,7 +91,7 @@
 			error : function(data) {
 				swal("Opps", "OTP Not Sent Successfull", "error");
 
-			}
+			}	
 		});
 	}
 	function submitForm() {

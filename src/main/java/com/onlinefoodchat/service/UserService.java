@@ -2,7 +2,6 @@ package com.onlinefoodchat.service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,11 +18,17 @@ import org.springframework.web.client.RestTemplate;
 import com.onlinefoodchat.entity.AddCart;
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MenuEntity;
+import com.onlinefoodchat.entity.MyOrders;
+import com.onlinefoodchat.entity.Notification;
+import com.onlinefoodchat.entity.OrderProductList;
 import com.onlinefoodchat.entity.ReCaptchaResponse;
 import com.onlinefoodchat.entity.UserLogin;
 import com.onlinefoodchat.repository.AddCartRespository;
 import com.onlinefoodchat.repository.ClientRepository;
 import com.onlinefoodchat.repository.MenuRepository;
+import com.onlinefoodchat.repository.MyOrdersRepository;
+import com.onlinefoodchat.repository.NotificationRepository;
+import com.onlinefoodchat.repository.OrderProductListRepository;
 import com.onlinefoodchat.repository.UserRepository;
 
 @Service
@@ -32,25 +37,27 @@ public class UserService {
 	private UserRepository repo;
 	@Autowired
 	private ClientRepository clientRepository;
-	@Autowired
-	private RestTemplate restTemplate;
+
 	@Autowired
 	private MenuRepository menuRepo;
 	@Autowired
 	private AddCartRespository addCartRespository;
+	@Autowired
+	private MyOrdersRepository myOrdersRepository;
+	@Autowired 
+	private NotificationRepository notificationRepository;
+	@Autowired
+	private OrderProductListRepository orderProductRepo;
 	private Matcher matcherPassword;
 	private Pattern patternPassword;
 
+	private AddCart addCart;
+	private OrderProductList ordersList;
+	static String email;
 	/* User Registration */
 
 	public boolean createUser(UserLogin user, HttpServletRequest request) {
-		String captchaResponse = request.getParameter("g-recaptcha-response");
-		String url = "https://www.google.com/recaptcha/api/siteverify";
-		String params = "?secret=6LfAseghAAAAACRGPCLYR_JIa22Ea71YY2dUQqTt&response=" + captchaResponse;
-
-		ReCaptchaResponse response = restTemplate.exchange(url + params, HttpMethod.POST, null, ReCaptchaResponse.class)
-				.getBody();
-		System.out.println(response.isSuccess());
+		
 
 		patternPassword = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Z a-z 0-9 \\s_]).{5,20}$");
 		matcherPassword = patternPassword.matcher(user.getUserPassword());
@@ -64,7 +71,9 @@ public class UserService {
 
 	/* User Login */
 	public UserLogin login(UserLogin userLogin) {
-		return repo.findByUserEmailAndUserPassword(userLogin.getUserEmail(), userLogin.getUserPassword());
+		email = userLogin.getUserEmail();
+		System.out.println("e== " + email);
+		return repo.findByUserEmailAndUserPassword(email, userLogin.getUserPassword());
 	}
 
 	@Transactional
@@ -101,24 +110,100 @@ public class UserService {
 
 	/* Add Cart */
 	@Transactional
-	public boolean saveCart(AddCart addCart,String session) {
+	public void saveCart(AddCart addCart, String session) {
 		addCart.setUserEmail(session);
-		
-		addCart.setTotlePrice(addCart.getMenuPrice()*addCart.getMenuQuantity());
-		List<AddCart> findByRestoNameAndUserEmail = addCartRespository.findByRestoNameAndUserEmail(addCart.getRestoName(), session);
-		
-		if( findByRestoNameAndUserEmail==null || findByRestoNameAndUserEmail.isEmpty()){
+		double sum = 0;
+		addCart.setTotlePrice(addCart.getMenuPrice() * addCart.getMenuQuantity());
+		List<AddCart> findByRestoNameAndUserEmail = addCartRespository
+				.findByRestoNameAndUserEmail(addCart.getRestoName(), session);
+
+		if (findByRestoNameAndUserEmail == null || findByRestoNameAndUserEmail.isEmpty()) {
+
 			addCartRespository.deleteDish(addCart.getUserEmail());
+			addCart.setSumOfTotlePrice(this.sumOfTotalAmount(findByRestoNameAndUserEmail, addCart));
+			addCartRespository.save(addCart);
+		} else {
+			addCart.setSumOfTotlePrice(this.sumOfTotalAmount(findByRestoNameAndUserEmail, addCart));
 			addCartRespository.save(addCart);
 		}
-		else {
-			addCartRespository.save(addCart);
-		}
-		return true;
+
 	}
 
 	public List<AddCart> myOrder(String usreEmail) {
 		List<AddCart> findByUserEmail = addCartRespository.findByUserEmail(usreEmail);
 		return findByUserEmail;
+	}
+
+	// sum of total amount
+	public double sumOfTotalAmount(List<AddCart> findByRestoNameAndUserEmail, AddCart addCart) {
+		int i = 0;
+		int sum = 0;
+		do {
+			if (findByRestoNameAndUserEmail.size() == 0) {
+				sum = addCart.getTotlePrice();
+				return sum;
+			}
+			sum = sum + findByRestoNameAndUserEmail.get(i).getTotlePrice() + addCart.getTotlePrice();
+			i++;
+		} while (i < findByRestoNameAndUserEmail.size());
+		return sum;
+	}
+
+	/* Update Price */
+	@Transactional
+	public double getUpdatePrice(String dishId, String quantity, String totalPrice) {
+
+		List<AddCart> findByUserEmail = addCartRespository.findByUserEmail(email);
+		int i = 0;
+		double sum = 0;
+		do {
+			if (findByUserEmail.size() == 0) {
+				return sum;
+			}
+			sum = sum + findByUserEmail.get(i).getTotlePrice();
+			i++;
+		} while (i < findByUserEmail.size());
+		addCartRespository.updateData(quantity, totalPrice, "" + sum, dishId);
+		return sum;
+	}
+
+	/* Pay Order */ 
+	
+	public boolean PayOrder(MyOrders myOrders, String email,String id) {
+		int totalQuentity=0;
+		double totalPrice=0;
+		
+		
+		
+		List<AddCart> findByUserEmail = addCartRespository.findByUserEmail(email);
+		myOrders.setRestoName(findByUserEmail.get(0).getRestoName());
+		myOrders.setUserEmail(email);
+		myOrders.setUserId(Integer.parseInt(id));
+		myOrdersRepository.save(myOrders);
+		System.out.println(findByUserEmail.get(0).getMenuName());
+		for(int i=0;i<findByUserEmail.size();i++) {
+			OrderProductList productList=new OrderProductList();
+			totalQuentity=totalQuentity+findByUserEmail.get(i).getMenuQuantity();
+			totalPrice=totalPrice+findByUserEmail.get(i).getTotlePrice();
+			productList.setMenuName(findByUserEmail.get(i).getMenuName());
+			productList.setMyOrders(myOrders);
+			productList.setMenuImage(findByUserEmail.get(i).getMenuImage());
+			productList.setMenuPrice(findByUserEmail.get(i).getMenuPrice());
+			productList.setQuantity(findByUserEmail.get(i).getMenuQuantity());
+			orderProductRepo.save(productList);
+		}
+		myOrders.setTotalAmount(totalPrice);
+		myOrders.setTotalQuantity(totalQuentity);
+	
+		myOrdersRepository.saveAndFlush(myOrders);
+		
+		Notification notification=new Notification();
+		notification.setIdentifyId(Integer.parseInt(id));
+		notification.setOrderid(myOrders.getOrderId());
+		notification.setUserMessage("Your Order Has been Taken by  "+findByUserEmail.get(0).getRestoName()+" Restorent");
+		notification.setRestoName(findByUserEmail.get(0).getRestoName());
+		notification.setClintMessage("order Request by "+myOrders.getUserEmail());
+		notificationRepository.save(notification);
+		return true;
 	}
 }
