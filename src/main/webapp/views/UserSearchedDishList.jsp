@@ -8,8 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-
-<link rel="stylesheet" href="style.css">
+<!-- 
+<link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 
 </head>

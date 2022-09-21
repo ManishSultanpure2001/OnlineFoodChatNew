@@ -8,12 +8,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Show All Dish</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 <body>
 	<div class="container">
-	<form action="UserResetPassword.jsp">
+	<form action="/userChangePassword">
 	<br>
 	<br>
 	<br>

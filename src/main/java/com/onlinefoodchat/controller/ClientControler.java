@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MyOrders;
+import com.onlinefoodchat.entity.Notification;
 import com.onlinefoodchat.entity.OrderProductList;
 import com.onlinefoodchat.service.ClientServices;
 import com.onlinefoodchat.service.EmailSenderService;
@@ -55,6 +56,23 @@ public class ClientControler extends HttpServlet {
 		return "clientLogin";
 	}
 
+	/* Client Dashboard */
+	@RequestMapping("/clientMyAccount")
+	public String clientMyAccount() {  
+		return "ClientMyAccount";
+	}
+	
+	/* Renew Plan JSP */
+	@RequestMapping("/renewPlan")
+	public String renewPlan() {  
+		return "RenewPlan";
+	}
+	
+	/* Client My Account */
+	@RequestMapping("/clientDashboard")
+	public String dashboard() {  
+		return "clientDeshboard";
+	}
 	/* Client Registration */
 	@SuppressWarnings("deprecation")
 	@PostMapping("/clientSignup")
@@ -164,12 +182,19 @@ public class ClientControler extends HttpServlet {
 			
 			System.out.println(""+session.getAttribute("orderId"));
 			List<MyOrders> list=clientService.updateOrderStatus(""+session.getAttribute("orderId"),""+session.getAttribute("restoName"));
-		
-			
 //			modelAndView.addObject("successMsg","Order Deleted SuccessFully");else
 //			modelAndView.addObject("errorMsg","Order Not Deleted SuccessFully");
 			modelAndView.setViewName("ListOfClientOrder");
 			modelAndView.addObject("data",list);
+			return modelAndView;
+		}
+		
+		/* User Notifications */
+		@GetMapping("/clientNotification")
+		public ModelAndView clientNotifications(HttpSession session) {
+			List<Notification> allNotifications = clientService.getAllNotifications(""+session.getAttribute("clientId"),""+session.getAttribute("restoName"));
+			modelAndView.addObject("clientNotification", allNotifications);
+			modelAndView.setViewName("ClientNotification");
 			return modelAndView;
 		}
 	/* Email Send With Plan */

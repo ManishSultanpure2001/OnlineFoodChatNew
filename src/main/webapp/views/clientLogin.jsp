@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 
@@ -110,8 +110,7 @@
 				console.log(response);
 				var data = '';
 				swal("Good Job", "Login Successfully", "success");
-				 
-				window.location.href = "/views/clientDeshboard.jsp";
+				 window.location.href = "/clientDashboard";
 
 			},
 			error : function(error) {

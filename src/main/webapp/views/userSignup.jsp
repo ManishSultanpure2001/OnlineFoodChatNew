@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 

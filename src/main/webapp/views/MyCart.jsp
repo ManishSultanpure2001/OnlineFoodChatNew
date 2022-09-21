@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 <title>Insert title here</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 	<center>
@@ -109,6 +110,8 @@
 			Order</button> -->
 		<button class="btn btn-sm btn-success" type="submit">Place
 			Order</button>
+<!-- 		<button class="btn btn-sm btn-success" onclick="payment()">Place
+			Order</button> -->
 		<%
 			}
 		%>
@@ -117,7 +120,8 @@
 </body>
 
 </html>
-<script type="text/javascript">
+
+<script type="text/javascript" >
 	var totalPrice=0;
 
 	  	function dec(quantity,menuPrice,dishId){
@@ -157,6 +161,7 @@
 	}
 	
   	function payment(){
+  		debugger
   		console.log("Called");
   		let amount = $("#totalAmount").html();
   		if (amount == '' || amount == null || amount==0.0 ) {
@@ -171,12 +176,12 @@
   			}),
   			contentType : 'application/json',
   			dataType : 'json',
-  			
   			success : function(result) {
+  				debugger
   				console.log(result)
   				 console.log("going inside")
   				var options = {
-  					"key" : "rzp_test_sgXOFdvGGQTLKV", // Enter the Key ID
+  					"key" : "rzp_test_pD0YjVtHpPgAXK", // Enter the Key ID
   														// generated from the
   														// Dashboard
   					"amount" : result.amount, // Amount is in currency subunits.
@@ -188,11 +193,11 @@
   					"order_id" : result.id, // This is a sample Order ID. Pass the
   											// `id` obtained in the response of Step
   											// 1
-  				/* 	"handler" : function(response) {
-  						console.log(response.razorpay_payment_id);
+  				  	"handler" : function(response) {
+  						/* console.log(response.razorpay_payment_id);
   						console.log(response.razorpay_order_id);
-  						console.log(response.razorpay_signature)
-  	                    $.ajax({
+  						console.log(response.razorpay_signature); */
+  	               /*      $.ajax({
   							url : "/payOrder",
   							method : "POST",
   							success : function(result) {
@@ -204,8 +209,9 @@
   								console.log(result.status)
   								console.log(result + "nhi Aaya");
   							}
-  						});
-  				  	}, */
+  						}); */
+  						console.log("payment done");
+  				  	}, 
   					"prefill" : {
   						"name" : "",
   						"email" : "",
@@ -215,12 +221,12 @@
   						"address" : "Online Food Chat"
   					},
   					"theme" : {
-  						"color" : "#495848"
+  						"color" : "#405888"
   					}
   				};
   				var rzp1 = new Razorpay(options);
   				rzp1.on('payment.failed', function(response) {
-  					alert(response.error.code);
+  					 alert(response.error.code);
   					alert(response.error.description);
   					alert(response.error.source);
   					alert(response.error.step);
@@ -235,7 +241,8 @@
   				alert("Something went Wrong");
   			}
   		});
-	}  
+  		
+	}  ;
 	
 	
 	</script>

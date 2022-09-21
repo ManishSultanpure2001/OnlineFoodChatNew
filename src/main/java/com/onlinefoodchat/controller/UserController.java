@@ -27,6 +27,7 @@ import com.onlinefoodchat.entity.AddCart;
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.entity.MyOrders;
+import com.onlinefoodchat.entity.Notification;
 import com.onlinefoodchat.entity.OrderProductList;
 import com.onlinefoodchat.entity.UserLogin;
 import com.onlinefoodchat.service.EmailSenderService;
@@ -55,6 +56,33 @@ public class UserController {
 		return modelAndView;
 	}
 
+	@RequestMapping("/userDashboard")
+	public ModelAndView userDashboard() {
+		
+		modelAndView.setViewName("UserDeshBoard");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/userMyAccount")
+	public ModelAndView userMyAccount() {
+		
+		modelAndView.setViewName("UserMyAccount");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/userLogout")
+	public ModelAndView userLogout() {
+		
+		modelAndView.setViewName("userLogin");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/userChangePassword")
+	public ModelAndView userChangePassword() {
+		
+		modelAndView.setViewName("UserResetPassword");
+		return modelAndView;
+	}
 	/* User SignUp */
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveUser(@RequestBody UserLogin user, HttpServletRequest request) {
@@ -99,7 +127,6 @@ public class UserController {
 	@GetMapping("/searchMenu")
 	public ModelAndView searchMenu(@RequestParam int searchId,@RequestParam String searchEmail,@RequestParam String restoName) {	
 		List<MenuEntity> searchedMenu = service.getSearchedMenu(searchId,searchEmail);
-		
 		modelAndView.addObject("allMenu",searchedMenu);
 		modelAndView.addObject("restoName",restoName);
 		modelAndView.setViewName("UserSearchedDishList");
@@ -160,7 +187,7 @@ public class UserController {
 	
 	/* RazorPay Amount Varification */
 	@ResponseBody
-	@RequestMapping(value="/payment")
+	@PostMapping("/payment")
 	public String getPayment(@RequestBody Map<String, Object> data) throws RazorpayException {
 		
 		System.out.println("aaya tha");
@@ -169,7 +196,7 @@ public class UserController {
 		double amount = Double.parseDouble(data.get("amount").toString());
 		
 		//creating razorpayclient object for creating order
-		RazorpayClient razorpayClient = new RazorpayClient("rzp_test_sgXOFdvGGQTLKV", "vjBjHIOGkSAlRNiVAlvKz7pE");
+		RazorpayClient razorpayClient = new RazorpayClient("rzp_test_pD0YjVtHpPgAXK", "ttnVepCYaPGirIQ52n6SbhJo");
 		
 		//creating jsonObject with all deatils like amount currency
 		JSONObject jsonObject = new JSONObject();
@@ -193,9 +220,38 @@ public class UserController {
 		modelAndView.addObject("successMsg", "Order Success full");
 		else
 			modelAndView.addObject("errorMsg", "Order Not Success full");
-		//modelAndView.setViewName("MyCart");
+		modelAndView.setViewName("MyCart");
 		return modelAndView;
 	}
+	
+	/* User All Orders */
+	
+	@GetMapping("/allOrders")
+	public ModelAndView getAllOrders(@ModelAttribute MyOrders myOrders ,HttpSession session) {
+		System.out.println("come");
+		 List<MyOrders> orders = service.getOrders(""+session.getAttribute("email"));
+		modelAndView.setViewName("UserOrders");
+		modelAndView.addObject("allOrders",orders);
+		return modelAndView;
+	}
+	/* User Notifications */
+	@GetMapping("/userNotification")
+	public ModelAndView userNotifications(HttpSession session) {
+		List<Notification> allNotifications = service.getAllNotifications(""+session.getAttribute("userId"));
+		modelAndView.addObject("userNotification", allNotifications);
+		modelAndView.setViewName("UserNotification");
+		return modelAndView;
+	}
+	
+	/* Cancle Order */
+	@GetMapping("/cancelOrder")
+	public ModelAndView cancelOrder(@ModelAttribute("orderId") int id,HttpSession session) {
+		List<MyOrders> cancelOrder = service.getCancelOrder(id);
+		modelAndView.setViewName("UserDeshBoard");
+		//modelAndView.addObject("allOrders",cancelOrder);
+		return modelAndView;
+	}
+	
 	/* Email Send Without Plan */
 	@ResponseBody
 	@GetMapping("/loginEmail")

@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 <%@include file="all_js_css.jsp"%>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg " class="navbar navbar-light"
