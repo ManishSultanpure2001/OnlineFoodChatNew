@@ -3,6 +3,7 @@ package com.onlinefoodchat.service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -179,7 +180,7 @@ public class UserService {
 		myOrders.setRestoName(findByUserEmail.get(0).getRestoName());
 		myOrders.setUserEmail(email);
 		myOrders.setUserId(Integer.parseInt(id));
-		myOrdersRepository.save(myOrders);
+//		myOrdersRepository.save(myOrders);
 		System.out.println(findByUserEmail.get(0).getMenuName());
 		for(int i=0;i<findByUserEmail.size();i++) {
 			OrderProductList productList=new OrderProductList();
@@ -195,7 +196,7 @@ public class UserService {
 		myOrders.setTotalAmount(totalPrice);
 		myOrders.setTotalQuantity(totalQuentity);
 	
-		myOrdersRepository.saveAndFlush(myOrders);
+		myOrdersRepository.save(myOrders);
 		
 		Notification notification=new Notification();
 		notification.setIdentifyId(Integer.parseInt(id));
@@ -205,5 +206,38 @@ public class UserService {
 		notification.setClintMessage("order Request by "+myOrders.getUserEmail());
 		notificationRepository.save(notification);
 		return true;
+	}
+
+	/* All Notifications */
+	public  List<Notification> getAllNotifications(String id) {
+		List<Notification> allNotifications =notificationRepository.findByIdentifyId(Integer.parseInt(id));
+		return allNotifications;
+	}
+
+	/* All Orders List */
+	public List<MyOrders> getOrders(String email) {
+		List<MyOrders> findByUserEmail = myOrdersRepository.findByUserEmail(email);
+	return findByUserEmail;	
+	}
+
+	
+	/* Cancel Order */
+	@Transactional
+	public List<MyOrders> getCancelOrder(int id) {
+		List<MyOrders> findByRestoName=null;
+		try {
+			
+			MyOrders myOrders=myOrdersRepository.findById(id).get();
+			myOrders.setOrderStatus("cancel");
+			System.out.println(findByRestoName);
+			String orderMessage="order has been Cancled by "+ myOrders.getUserEmail();
+			notificationRepository.updateUserNotification("Order Cancel", "Order Has Been Cancel",""+myOrders.getUserId(),""+myOrders.getOrderId());
+			notificationRepository.updateClientNotification("Order Cancel",orderMessage,""+myOrders.getUserId(),""+myOrders.getOrderId());
+		}
+		catch(NullPointerException|ClassCastException  exception) {
+		exception.printStackTrace();
+		}
+		
+		return null;
 	}
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 
@@ -113,7 +113,7 @@
 				var data = '';
 				swal("Good Job", "Login Successfully", "success");
 				setInterval(5000);
-				window.location.href = "/views/UserDeshBoard.jsp";
+				window.location.href = "/userDashboard";
 			},
 			error : function(error) {
 				//window.location.href = "/views/clintSignUp.jsp";

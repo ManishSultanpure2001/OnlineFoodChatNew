@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.onlinefoodchat.entity.ClientLogin;
 import com.onlinefoodchat.entity.MyOrders;
+import com.onlinefoodchat.entity.Notification;
 import com.onlinefoodchat.entity.OrderProductList;
 import com.onlinefoodchat.repository.ClientRepository;
 import com.onlinefoodchat.repository.MyOrdersRepository;
@@ -141,13 +142,15 @@ public class ClientServices {
 
 	@Transactional
 	public List<MyOrders> getDeletedOrder(int id,String restoName) {
-		List<MyOrders> findByRestoName=null;;
+		List<MyOrders> findByRestoName=null;
 		try {
 			System.out.println(restoName);
 			MyOrders myOrders=myOrdersRepository.findById(id).get();
 			int flag=listRepository.deleteByMyOrders(myOrders);
 			findByRestoName = myOrdersRepository.findByRestoName(restoName);
 			System.out.println(findByRestoName);
+			String orderMessage="order has been Cancled by "+ restoName+" Restorent";
+			notificationRepository.updateUserNotification("Order Deleted", orderMessage,""+myOrders.getUserId(),""+myOrders.getOrderId());
 		}
 		catch(NullPointerException|ClassCastException  exception) {
 		exception.printStackTrace();
@@ -166,5 +169,10 @@ public class ClientServices {
 			notificationRepository.updateUserNotification("completed", orderMessage,""+myOrders.getUserId(),""+myOrders.getOrderId());
 	List<MyOrders> findByRestoName = myOrdersRepository.findByRestoName(restoName);
 	return findByRestoName;
+	}
+
+	public List<Notification> getAllNotifications(String id,String restoName) {
+		List<Notification> findByIdentifyIdOrRestoName = notificationRepository.findByIdentifyIdOrRestoName(Integer.parseInt(id), restoName);
+		return findByIdentifyIdOrRestoName;
 	}
 }

@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Show All Dish</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 <body>
@@ -25,12 +25,12 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="/views/clientDeshboard.jsp">           DashBoard <span
+					href="/clientDashboard">           DashBoard <span
 						class="sr-only">(current)</span>
 				</a></li>
 				</li>
 				<span class="sr-only">(current)</span>
-				<li class="nav-item active"><a class="nav-link" href="#">Notification</a></li>
+				<li class="nav-item active"><a class="nav-link" href="/clientNotification">Notification</a></li>
 
 				<li class="nav-item active"><a class="nav-link"
 					href="/views/clientLogin.jsp">Logout </a>
@@ -80,9 +80,13 @@
 					<td><%=myOrders.getTotalQuantity()%></td>
 					<td><%=myOrders.getTotalAmount()%></td>
 					<td><%=myOrders.getOrderStatus()%></td>
-					<td><a class="btn btn-sm btn-success" href="/menuList?menuId=<%=myOrders.getOrderId()%>">View Menu List</a> <a
+					<%if(myOrders.getOrderStatus().equals("panding")) {%>
+					<td><a class="btn btn-sm btn-success" href="/menuList?menuId=<%=myOrders.getOrderId()%>">View Menu List</a> 
+					
+					<a
 						class="btn btn-sm btn-danger"
 						href="/deleteOrder?menuId=<%=myOrders.getOrderId()%>">Delete Order</a></td>
+						<%} %>
 					<%
 						}
 					}

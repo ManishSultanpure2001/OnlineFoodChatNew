@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Show All Dish</title>
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 <body>
@@ -19,7 +19,7 @@
 	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-block">My Plan</button>
 	</form>
-	<form action="RenewPlan.jsp">
+	<form action="/renewPlan">
 	<br>
 	<br>
 	<br>

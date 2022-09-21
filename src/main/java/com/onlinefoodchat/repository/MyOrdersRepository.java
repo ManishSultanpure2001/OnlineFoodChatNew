@@ -12,6 +12,7 @@ import com.onlinefoodchat.entity.MyOrders;
 
 public interface MyOrdersRepository extends JpaRepository<MyOrders, Integer> {
 	public List<MyOrders> findByRestoName(String restoName);
+	public List<MyOrders> findByUserEmail(String email);
 	
 //	@Modifying
 //	@Query(value="update my_orders set order_status=:status where order_id=:id",nativeQuery = true)

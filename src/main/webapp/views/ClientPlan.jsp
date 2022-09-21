@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>My Plan</title>
-<link rel="stylesheet" href="views/style.css">
+<!-- <link rel="stylesheet" href="views/style.css"> -->
 <%@include file="all_js_css.jsp"%>
 </head>
 <body>
