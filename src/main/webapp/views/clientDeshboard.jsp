@@ -11,7 +11,7 @@
 
 <body class="loginBody">
 	<center>
-		<h1 id="deshboardHading">Welcome In Deshboard</h1>
+		<h1 id="deshboardHading">Welcome <%=request.getAttribute("restoName")%></h1>
 	</center>
 								<button type="button" class="btn btn-primary  position-relative far fa-bell offset-lg-9"><a href="/clientNotification"> 
   Notifications

@@ -93,7 +93,7 @@
 		});
 	}
 	function submitForm() {
-
+		let mail = $("#emailId").val();
 		var fieldValues = {
 			"clientEmail" : $("#emailId").val(),
 			"clientPassword" : $("#password").val(),
@@ -114,8 +114,8 @@
 
 			},
 			error : function(error) {
-				//window.location.href = "/views/clintSignUp.jsp";
-				swal("Opps Somthing Went Wrong!", "Please Try Again", "error");
+				
+				swal(error.responseText, "Please Try Again", "error");
 				console.log(error);
 			},
 		});

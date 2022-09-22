@@ -87,12 +87,12 @@
 				console.log(response);
 				swal("Good Job", "Register Successfully", "success");
 				setInterval(5000);
-				window.location.href = "/views/userLogin.jsp";
+				window.location.href = "/userLogin";
 
 			},
 			error : function(error) {
 
-				swal("Somthing Went Wrong!", "Please Try Again", "error");
+				swal(error.responseText, "Please Try Again", "error");
 				console.log(error);
 			},
 		});

@@ -14,40 +14,20 @@
 </head>
 <body>
 	<center>
-		<h1 style="color: green">Your Order</h1>
+		<h1 style="color: green">Your Orders</h1>
 	</center>
 
 	<form action="/payOrder" method="post">
 	<div class="container">
 		<br>
-	<%
-	if (request.getAttribute("successMsg") != null) {
-	%>
-	<h1 style="color: green"><%=request.getAttribute("successMsg")%></h1>
-	<%
-	}
-	%>
-	<%
-	if (request.getAttribute("errorMsg") != null) {
-	%>
-	<h1 style="color: red"><%=request.getAttribute("errorMsg")%></h1>
-	<%
-	}
-	%>
+	
 		<div class="row">
 			<%
 				List<MyOrders> data = (List<MyOrders>) request.getAttribute("allOrders");
 			if (data != null) {
 				MyOrders myorders=null;
 			%>
-			<div col-6>
-				<h3>
-					Resto Name:-
-					</h1>
-			</div>
-			<div col-6>
-				<h3 id="restoName" style="color: blue;"><%=data.get(0).getRestoName()%></h1>
-			</div>
+		
 		</div>
 		<br>
 
@@ -76,12 +56,20 @@
 					<td><p id="status"><%=myorders.getOrderStatus()%></p></td>
 					<td><p id="quantity"><%=myorders.getTotalQuantity()%></p></td>
 					<td><p id="quantity"><%=myorders.getTotalAmount()%></p></td>
-					<td>
+					
 					<% if(myorders.getOrderStatus().equals("panding")){%>
-					<a
+					<td><a
 						class="btn btn-sm btn-danger"
 						href="/cancelOrder?orderId=<%=myorders.getOrderId()%>">Cancel Order</a></td>
-			<%} %>
+			<%} else{
+					%>
+					<td><a
+						class="btn btn-sm btn-danger disabled"
+						href="/cancelOrder?orderId=<%=myorders.getOrderId()%>">Cancel Order</a></td> 
+				
+					<%
+					}%>
+					
 				</tr>
 			</tbody>
 

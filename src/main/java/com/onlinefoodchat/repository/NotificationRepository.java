@@ -17,6 +17,12 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 	@Modifying
 	@Query(value="update notification set status=:status,clint_message=:message where (identify_id=:id and orderid=:orderId)",nativeQuery = true)
 	public int updateClientNotification(@Param("status") String status,@Param("message") String message,@Param("id") String id,@Param("orderId") String orderId);
+	@Modifying
+	@Query(value="update notification set user_delete_status=:deleteStatus where (orderid=:orderId)",nativeQuery = true)
+	public int updateUserDeleteNotification(@Param("deleteStatus") int status,@Param("orderId") int orderId);
+	@Modifying
+	@Query(value="update notification set client_delete_status=:deleteStatus where (orderid=:orderId)",nativeQuery = true)
+	public int updateClientDeleteNotification(@Param("deleteStatus") int status,@Param("orderId") int orderId);
 
 	public List<Notification> findByIdentifyId(int id);
 	public List<Notification> findByIdentifyIdOrRestoName(int id,String restoName);

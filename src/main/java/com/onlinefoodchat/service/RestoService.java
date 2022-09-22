@@ -69,8 +69,8 @@ public class RestoService {
 		data.setClientemail("" + request.getAttribute("email"));
 
 		String imageName = imageFile.getOriginalFilename().trim();
-		data.setMenuImage(imageName);
-		if (imageName != null) {
+		
+		if (!imageName.isEmpty()) {
 			inputStreamImage = imageFile.getInputStream();
 			try {
 				fileOutputStreamImage = new FileOutputStream(
@@ -83,6 +83,7 @@ public class RestoService {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
+			data.setMenuImage(imageName);
 		}
 		ClientLogin findByClientEmail2 = clientRepository.findByClientEmail("" + request.getAttribute("email"));
 		data.setClientLogin(findByClientEmail2);
@@ -113,7 +114,6 @@ public class RestoService {
 		MenuEntity menu = findById.get();
 		menu.setMenuName(entity.getMenuName());
 		menu.setMenuPrice(entity.getMenuPrice());
-		menu.setMenuImage(imageFile.getOriginalFilename().trim());
 		this.addMenuData(menu, imageFile, session);
 		return true;
 	}
