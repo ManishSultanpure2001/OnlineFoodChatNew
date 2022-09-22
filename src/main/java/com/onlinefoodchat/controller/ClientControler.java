@@ -1,11 +1,11 @@
  package com.onlinefoodchat.controller;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
@@ -50,6 +50,7 @@ public class ClientControler extends HttpServlet {
 		return "clientSignUp";
 	}
 
+	
 	@GetMapping("/login")
 	public String clientLogin1() {
 
@@ -69,9 +70,13 @@ public class ClientControler extends HttpServlet {
 	}
 	
 	/* Client My Account */
+	@ResponseBody
 	@RequestMapping("/clientDashboard")
-	public String dashboard() {  
-		return "clientDeshboard";
+	public ModelAndView dashboard(HttpSession session) {
+		String restoName = clientService.getRestoName(""+session.getAttribute("email"));
+		modelAndView.setViewName("clientDeshboard");
+		modelAndView.addObject("restoName", restoName);
+		return modelAndView;
 	}
 	/* Client Registration */
 	@SuppressWarnings("deprecation")
@@ -87,12 +92,16 @@ public class ClientControler extends HttpServlet {
 			incrimentValue += 3;
 		clientLogin.setStartDate(new java.sql.Date(date.getYear(), date.getMonth(), date.getDate()));
 		clientLogin.setEndDate(new java.sql.Date(date.getYear(), date.getMonth() + incrimentValue, date.getDate()));
-	//	if(randomWithNextInt == clientLogin.getOtp()) {
-		if (clientService.clintRegister(clientLogin)) {
-			return ResponseEntity.ok(clientLogin);
-		//}
+//		if(randomWithNextInt != clientLogin.getOtp()) {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP Not Valid");}
+		String validation=clientService.clintRegister(clientLogin);
+		if (validation.equals("password")) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password Should be Strong Form");
 		}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
+		if (validation.equals("mobileNumber")) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mobile Number Must be only 10 Digit");
+		}
+		
+		return ResponseEntity.ok(clientLogin);
 		 
 	}
 
@@ -100,19 +109,19 @@ public class ClientControler extends HttpServlet {
 	@PostMapping("/clientLogin")
 	public ResponseEntity<Object> clintLogin2(@RequestBody ClientLogin clientLogin, HttpSession session) {
 		ClientLogin obj = clientService.cilentLogin(clientLogin);
-		//if (obj != null && (randomWithNextInt == clientLogin.getOtp()&&randomWithNextInt!= 0)) {
-			 if (obj != null) {
-			System.out.println(randomWithNextInt);
-			session.setAttribute("email", clientLogin.getClientEmail());
-			session.setAttribute("restoName", obj.getRestoName());
-			session.setAttribute("clientId", obj.getId());
-			return ResponseEntity.ok(clientLogin);
-		//}
+//		if(!(randomWithNextInt == clientLogin.getOtp()&&randomWithNextInt!= 0)) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong OTP");
+//			}
+			 if (obj == null) {
+				 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("password does not match");
+			 }
+			 System.out.println(randomWithNextInt);
+				session.setAttribute("email", clientLogin.getClientEmail());
+				session.setAttribute("restoName", obj.getRestoName());
+				session.setAttribute("clientId", obj.getId());
+				return ResponseEntity.ok(obj);
+	}
 		
-	}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email and password does not match");
-	}
-	
 	/* Client Plan*/
 	 
 	@RequestMapping("/myPlan")
@@ -138,8 +147,8 @@ public class ClientControler extends HttpServlet {
 		@SuppressWarnings("deprecation")
 		@PostMapping("/clientPlan")
 		public ResponseEntity<Object> renewPlan(@RequestBody ClientLogin clientLogin) throws ParseException {
-			//if (clientService.renewPlan(clientLogin) && randomWithNextInt == clientLogin.getOtp()) {
-			if (clientService.renewPlan(clientLogin)) {
+			if (clientService.renewPlan(clientLogin) && randomWithNextInt == clientLogin.getOtp()) {
+			//if (clientService.renewPlan(clientLogin)) {
 				System.out.println("pass");
 				return ResponseEntity.ok(clientLogin);
 			}
@@ -197,6 +206,15 @@ public class ClientControler extends HttpServlet {
 			modelAndView.setViewName("ClientNotification");
 			return modelAndView;
 		}
+		
+		/* Delete Notification */
+		
+		@ResponseBody
+		@GetMapping("/clientDeleteNotification")
+		public String clientDeleteNotification(@RequestParam int orderId) {
+			clientService.getDeleteNotification(orderId);
+			return "ok";
+		}
 	/* Email Send With Plan */
 	@ResponseBody
 	@GetMapping("/email")
@@ -207,7 +225,7 @@ public class ClientControler extends HttpServlet {
 		randomWithNextInt = random.nextInt(799999) + 100000;
 		String subject = "OTP verification ";
 		String mailMessage = "Your plan is  " + plan + "  Enter OTP for Conformation  " + randomWithNextInt;
-		//emailSenderService.mailSender(email, subject, mailMessage);
+		emailSenderService.mailSender(email, subject, mailMessage);
 		return "ok";
 	}
 	

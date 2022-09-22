@@ -21,7 +21,7 @@
 		Iterator<Notification> iterator = data.iterator();
 		while (iterator.hasNext()) {
 			 Notification notification= iterator.next();
-
+			 if(notification.getClientDeleteStatus()==0){
     %>
 		
         <div class="notification-ui_dd-content">
@@ -39,9 +39,15 @@
                         <p class="text-muted"><small style="color:green;"><%=notification.getStatus() %></small></p>
                     </div>
                 </div>
+                 <div class="pull-right">
+                        <button class="fa-sharp fa-solid fa-circle-xmark" onclick="deleteNotification(<%= notification.getOrderid()%>)" style="color:red;"></button>
+						
+                    </div>
                </div>
-        </div>
+               </div>
+        
 <%
+			 }
 		}
 		}
 %>
@@ -49,4 +55,24 @@
     </div>
 </section>
 </body>
+<script type="text/javascript">
+function deleteNotification(orderId) {
+
+
+		$.ajax({
+
+			type : "GET",
+			url : "/clientDeleteNotification?orderId=" + orderId,
+			success : function(data) {
+				console.log("done");
+				swal("Good Job", "Delete Successfull", "success");
+				location.reload();
+			},
+			error : function(data) {
+				swal("Opps", "Delete Not Successfull", "error");
+
+			}	
+		});
+	}
+	</script>
 </html>

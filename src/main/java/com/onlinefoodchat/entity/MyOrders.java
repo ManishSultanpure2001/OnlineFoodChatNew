@@ -22,7 +22,6 @@ public class MyOrders {
 		// TODO Auto-generated constructor stub 
 	}
 	
-	
 	public int getUserId() {
 		return userId;
 	}

@@ -25,7 +25,7 @@ import com.onlinefoodchat.repository.OrderProductListRepository;
 
 @Service
 public class ClientServices {
-	boolean validate = true;
+	
 	@Autowired
 	private ClientRepository clintRepository;
 	@Autowired 
@@ -37,23 +37,22 @@ public class ClientServices {
 	private ClientLogin clientLogin;
 
 	/* Client Login */
-	public boolean clintRegister(ClientLogin client) {
+	public String clintRegister(ClientLogin client) {
 
 		Pattern patternPassword = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Z a-z 0-9 \\s_]).{5,20}$");
 		Matcher matcherPassword = patternPassword.matcher(client.getClientPassword());
 
 		if (!matcherPassword.find())
-			validate = false;
+			return "password";
 
 		Pattern patternPhone = Pattern.compile("^[0-9]{10}$");
 		Matcher matcherPhone = patternPhone.matcher(client.getClientPhone());
 		if (!matcherPhone.find())
-			validate = false;
+			return "mobileNumber";
 
-		if (validate)
 			clintRepository.save(client);
 
-		return validate;
+		return "ok";
 	}
 
 	/* Client Login */
@@ -170,9 +169,23 @@ public class ClientServices {
 	List<MyOrders> findByRestoName = myOrdersRepository.findByRestoName(restoName);
 	return findByRestoName;
 	}
-
+	
+	/* Get All Notifications */
 	public List<Notification> getAllNotifications(String id,String restoName) {
 		List<Notification> findByIdentifyIdOrRestoName = notificationRepository.findByIdentifyIdOrRestoName(Integer.parseInt(id), restoName);
 		return findByIdentifyIdOrRestoName;
+	}
+
+	/* Delete Notifications */
+	@Transactional
+	public void getDeleteNotification(int orderId) {
+		notificationRepository.updateClientDeleteNotification(1, orderId);
+		
+	}
+
+	public String getRestoName(String email) {
+		ClientLogin findByClientEmail = clintRepository.findByClientEmail(email);
+		return findByClientEmail.getRestoName();
+		
 	}
 }

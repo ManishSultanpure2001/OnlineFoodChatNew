@@ -3,7 +3,6 @@ package com.onlinefoodchat.service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.onlinefoodchat.entity.AddCart;
 import com.onlinefoodchat.entity.ClientLogin;
@@ -22,7 +19,6 @@ import com.onlinefoodchat.entity.MenuEntity;
 import com.onlinefoodchat.entity.MyOrders;
 import com.onlinefoodchat.entity.Notification;
 import com.onlinefoodchat.entity.OrderProductList;
-import com.onlinefoodchat.entity.ReCaptchaResponse;
 import com.onlinefoodchat.entity.UserLogin;
 import com.onlinefoodchat.repository.AddCartRespository;
 import com.onlinefoodchat.repository.ClientRepository;
@@ -51,13 +47,10 @@ public class UserService {
 	private OrderProductListRepository orderProductRepo;
 	private Matcher matcherPassword;
 	private Pattern patternPassword;
-
-	private AddCart addCart;
-	private OrderProductList ordersList;
 	static String email;
 	/* User Registration */
 
-	public boolean createUser(UserLogin user, HttpServletRequest request) {
+	public String createUser(UserLogin user, HttpServletRequest request) {
 		
 
 		patternPassword = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Z a-z 0-9 \\s_]).{5,20}$");
@@ -65,16 +58,15 @@ public class UserService {
 		// if(response.isSuccess())
 		if (matcherPassword.find()) {
 			repo.save(user);
-			return true;
+			return "ok";
 		}
-		return false;
+		return "password";
 	}
 
 	/* User Login */
 	public UserLogin login(UserLogin userLogin) {
 		email = userLogin.getUserEmail();
-		System.out.println("e== " + email);
-		return repo.findByUserEmailAndUserPassword(email, userLogin.getUserPassword());
+		return repo.findByUserEmailAndUserPassword(userLogin.getUserEmail(),userLogin.getUserPassword());
 	}
 
 	@Transactional
@@ -239,5 +231,11 @@ public class UserService {
 		}
 		
 		return null;
+	}
+
+	/* Delete Notification */
+	@Transactional
+	public void getDeleteNotification(int orderId) {
+		notificationRepository.updateUserDeleteNotification(1, orderId);
 	}
 }

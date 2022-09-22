@@ -20,7 +20,7 @@ public class UserLogin {
 	private String userName;
 	private String userEmail;
 	private String userPassword;
-	private String otp;
+	private int otp=0;
 	
 	private String captcha;
 	@Transient
@@ -34,11 +34,11 @@ public class UserLogin {
 		this.newPassword = newPassword;
 	}
 
-	public String getOtp() {
+	public int getOtp() {
 		return otp;
 	}
 
-	public void setOtp(String otp) {
+	public void setOtp(int otp) {
 		this.otp = otp;
 	}
 

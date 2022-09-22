@@ -62,6 +62,7 @@
 				<tr>
 					<th name="menuId"><%=menuEntity.getMenuId()%></th>
 					<td><%=menuEntity.getMenuName()%></td>
+				
 					<td><img src="Image\\<%=menuEntity.getMenuImage()%>"
 						width='100' height='100'></td>
 					<td><%=menuEntity.getMenuPrice()%></td>

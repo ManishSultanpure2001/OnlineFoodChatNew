@@ -62,10 +62,11 @@ public class RestoController {
 	public ModelAndView addMenu(@ModelAttribute MenuEntity menuEntity,
 			@RequestParam("multipart") MultipartFile multipart, HttpSession session) throws IOException {
 		boolean addMenuData = restoService.addMenuData(menuEntity, multipart, session);
-		modelAndView.setViewName("allMenu");
-		this.allMenu(session);
+		List<MenuEntity> allMenu = restoService.getAllMenu(session);
+		modelAndView.addObject("allDish", allMenu);
 		modelAndView.setViewName("ShowAllMenu");
 		return modelAndView;
+		 
 	}
 
 	/* Edit Dish */
@@ -83,7 +84,9 @@ public class RestoController {
 	public ModelAndView SuccessUpdate(@ModelAttribute MenuEntity entity,
 			@RequestParam("multipart") MultipartFile multipart, HttpSession session) throws IOException {
 		restoService.updateData(entity, globalId, multipart, session);
-		this.allMenu(session);
+		List<MenuEntity> allMenu = restoService.getAllMenu(session);
+		System.out.println("All Menu= "+allMenu);
+		modelAndView.addObject("allDish", allMenu);
 		modelAndView.setViewName("ShowAllMenu");
 		return modelAndView;
 	}

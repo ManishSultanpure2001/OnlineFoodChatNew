@@ -57,7 +57,7 @@
 					<th scope="col">Menu Name</th>
 					<th scope="col">Menu Image</th>
 					<th scope="col">Menu Price</th>
-					<th scope="col">Dec/Inc</th>
+					<th scope="col">Menu Quantity</th>
 					<th scope="col">Total Order</th>
 				</tr>
 			</thead>
@@ -77,19 +77,21 @@
 					<input type="text" id="menuImage<%=addCart.getCartId()%>"
 						value="<%=addCart.getMenuImage()%>" hidden>
 					<td><p id="menuPrice<%=addCart.getMenuPrice()%>"><%=addCart.getMenuPrice()%></p></td>
-					<td>
+					 <td>
 
-						<div>
-							<button class="fa fa-minus"
+						<!--  <div> -->
+							<%-- <button class="fa fa-minus"
 								onclick="dec(<%=addCart.getMenuQuantity()%>,<%=addCart.getMenuPrice()%>,<%=addCart.getCartId()%>)"></button>
-
-							<input class="col-md-2" type="text"
+ --%>
+							<%-- <input class="col-md-2" type="text"
 								id="incDecTextFiled<%=addCart.getMenuQuantity()%>"
 								readonly="readonly" value="<%=addCart.getMenuQuantity()%>">
-
-							<button class="fa fa-plus"
+ --%>
+							<%-- <button class="fa fa-plus"
 								onclick="inc(<%=addCart.getMenuQuantity()%>,<%=addCart.getMenuPrice()%>,<%=addCart.getCartId()%>)"></button>
-						</div>
+						--%>
+						 <p id="incDecTextFiled<%=addCart.getMenuQuantity()%>"><%=addCart.getMenuQuantity()%></p>
+						<!-- </div> -->
 					</td>
 					<td>
 						<p id="menuTotlePrice<%=addCart.getTotlePrice()%>"><%=addCart.getTotlePrice()%></p>
@@ -103,7 +105,7 @@
 		
 		</table>
 		<div class="row">
-		<div class="offset-lg-8"><h3 id="totalAmount"><%=addCart.getSumOfTotlePrice()%><h3></div>
+		<div class="offset-lg-9"><h3 id="totalAmount"><%=addCart.getSumOfTotlePrice()%><h3></div>
 		</div class="offset-lg-9">
 		<!-- 
 		<button class="btn btn-sm btn-danger  offset-lg-9" onclick="addCart()">Cancle

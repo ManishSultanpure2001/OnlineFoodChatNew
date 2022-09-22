@@ -116,9 +116,9 @@
 				window.location.href = "/userDashboard";
 			},
 			error : function(error) {
-				//window.location.href = "/views/clintSignUp.jsp";
-				swal("Opps Somthing Went Wrong!", "Please Try Again", "error");
-				console.log(error);
+			
+				swal(""+error.responseText, "Please Try Again", "error");
+				
 			},
 		});
 	}

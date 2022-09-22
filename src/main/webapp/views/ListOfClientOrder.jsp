@@ -86,8 +86,16 @@
 					<a
 						class="btn btn-sm btn-danger"
 						href="/deleteOrder?menuId=<%=myOrders.getOrderId()%>">Delete Order</a></td>
-						<%} %>
+						<%}
+					else{
+					%>
+					<td><a class="btn btn-sm btn-success disabled" href="/menuList?menuId=<%=myOrders.getOrderId()%>" disabled>View Menu List</a> 
+					
+					<a
+						class="btn btn-sm btn-danger disabled"
+						href="/deleteOrder?menuId=<%=myOrders.getOrderId()%>" >Delete Order</a></td>
 					<%
+					}
 						}
 					}
 					%>
