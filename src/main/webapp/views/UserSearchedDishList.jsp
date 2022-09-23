@@ -11,7 +11,7 @@
 <!-- 
 <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
-
+<%@include file="UserDeshBoard.jsp"%>
 </head>
 <body>
 
@@ -114,7 +114,7 @@
 				console.log(response);
 				swal("Good Job", "Dish Added Successfully", "success");
 				setInterval(5000);
-				//window.location.href = "/views/userLogin.jsp";
+			
 
 			},
 			error : function(error) {

@@ -113,6 +113,7 @@
 				 window.location.href = "/clientDashboard";
 
 			},
+			
 			error : function(error) {
 				
 				swal(error.responseText, "Please Try Again", "error");

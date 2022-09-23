@@ -1,5 +1,6 @@
 package com.onlinefoodchat.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -108,7 +109,7 @@ public class UserController {
 //		if (!(randomWithNextInt == userLogin.getOtp())) {
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP");
 //		}
-		// if (obj != null &&) {
+		
 		if (obj == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid email Or password");
 
@@ -228,7 +229,9 @@ public class UserController {
 			modelAndView.addObject("successMsg", "Order Success full");
 		else
 			modelAndView.addObject("errorMsg", "Order Not Success full");
-		modelAndView.setViewName("MyCart");
+		List<MyOrders> orders = service.getOrders("" + session.getAttribute("email"));
+		modelAndView.setViewName("UserOrders");
+		modelAndView.addObject("allOrders", orders);
 		return modelAndView;
 	}
 

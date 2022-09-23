@@ -127,7 +127,7 @@
 				//var data = '';
 				swal("Good Job", "Register Successfully", "success");
 				setInterval(5000);
-				window.location.href = "/views/clientLogin.jsp";
+				window.location.href = "/login";
 
 			},
 			error : function(error) {
