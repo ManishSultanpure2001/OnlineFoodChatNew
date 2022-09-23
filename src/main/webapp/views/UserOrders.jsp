@@ -9,6 +9,7 @@
 <meta charset="ISO-8859-1">
 <!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
+<%@include file="UserDeshBoard.jsp"%>
 <title>Insert title here</title>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>

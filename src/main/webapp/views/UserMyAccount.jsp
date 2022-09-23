@@ -10,6 +10,7 @@
 <title>Show All Dish</title>
 <!-- <link rel="stylesheet" href="style.css"> -->
 <%@include file="all_js_css.jsp"%>
+<%@include file="UserDeshBoard.jsp"%>
 </head>
 <body>
 	<div class="container">
